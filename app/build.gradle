@@ -10,6 +10,10 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
     }
     buildTypes {
         release {
@@ -25,5 +29,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.volley:volley:1.0.0'
     compile 'com.google.android.gms:play-services:11.0.4'
+    compile 'com.firebase:firebase-client-android:2.5.2+'
+
 }
 apply plugin: 'com.google.gms.google-services'

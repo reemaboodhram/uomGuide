@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "605048984475-gbb4phoupo1gce64maheum3k94cs8ubg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.boodhram.guideme",
+            "certificate_hash": "05c356e0cf77fda97640deb7249228d97374af7a"
+          }
+        },
+        {
+          "client_id": "605048984475-mvoinrglmqm6ipcc5itc166lrvoa1rjd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.boodhram.guideme",
+            "certificate_hash": "6e949aa724dc5b39f1bf3c006bd1f1f44d7bd97f"
+          }
+        },
+        {
           "client_id": "605048984475-59l5nb7spcci88euum8aevcp1c3kfep6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
