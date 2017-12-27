@@ -55,6 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private void createTables(SQLiteDatabase db) {
         createTablePlaces(db);
+        populateTableBuildings(db);
 
     }
 
@@ -66,11 +67,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         qb.append(" placeDesc TEXT DEFAULT NULL, ");
         qb.append(" placeLong NUMERIC NOT NULL, ");
         qb.append(" placeLat NUMERIC NOT NULL, ");
-        qb.append(" phone NUMERIC NOT NULL, ");
+        qb.append(" phone NUMERIC DEFAULT NULL, ");
         qb.append(" fav NUMERIC DEFAULT 0 ); ");
         db.execSQL(qb.toString());
+
+
     }
 
+    private void populateTableBuildings(SQLiteDatabase db) {
+            String qb1 = "INSERT INTO buildings (placeName, placeDesc, placeLat,placeLong,phone) VALUES\n" +
+                    "('POWA', 'paul octave wiehe auditorium', '-20.233378', '57.497468', 12345678)," +
+                    "('CAFE', 'university of mauritius cafetaria', '-20.234205', '57.497626', 12345678),"+
+                    "('NAC', 'NAC', '-20.234691', '57.497531', 12345678),"+
+                    "('ENGINEERING TOWER', 'ENGINEERING TOWER', '-20.236041', '57.497093', 12345678),"+
+                    "('EX COMMON', 'EX COMMON', '-20.233973', '57.496622', 12345678),"+
+                    "('FOA', 'FOA', '-20.234504', '57.496226', 12345678),"+
+                    "('FSSSH', 'FSSSH', '-20.235273', '57.497194', 12345678),"+
+                    "('LIBRARY', 'LIBRARY', '-20.234913', '57.496991', 12345678);";
+
+            db.execSQL(qb1);
+
+        }
 
 
 }

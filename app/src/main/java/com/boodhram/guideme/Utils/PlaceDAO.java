@@ -92,10 +92,8 @@ public class PlaceDAO {
     }
     public List<PlaceDTO> getbuildingsList() {
         List<PlaceDTO> list = new ArrayList<>();
-        list.add(new PlaceDTO(1,"cafe","cafe",-20.147656, 57.685503,true,415785));
-        list.add(new PlaceDTO(2,"library","library",-20.147706, 57.685559,true,415785));
-        list.add(new PlaceDTO(3,"tower","tower",-20.147812, 57.685664,true,415785));
-        /* SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor res = db.rawQuery("select * from buildings ORDER BY id ASC", null);
         res.moveToFirst();
 
@@ -116,7 +114,7 @@ public class PlaceDAO {
             list.add(placeDTO);
             res.moveToNext();
         }
-        res.close();*/
+        res.close();
         return list;
 
     }
