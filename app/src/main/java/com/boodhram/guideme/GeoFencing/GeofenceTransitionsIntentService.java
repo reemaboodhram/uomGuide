@@ -57,7 +57,7 @@ public class GeofenceTransitionsIntentService extends IntentService {
     private void sendNotification(String notificationDetails) {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_audiotrack_dark)
+                        .setSmallIcon(R.drawable.bubble_in)
                         .setContentTitle(getString(R.string.app_name))
                         .setContentText(notificationDetails);
         int NOTIFICATION_ID = 12345;
