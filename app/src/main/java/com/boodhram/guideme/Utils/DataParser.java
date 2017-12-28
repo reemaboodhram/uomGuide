@@ -1,5 +1,6 @@
 package com.boodhram.guideme.Utils;
 
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -68,7 +69,7 @@ public class DataParser {
     }
 
 
-    public String getDurationDistance(JSONObject jObject, TextView txt_detail) {
+    public String getDurationDistance(JSONObject jObject) {
 
         JSONArray jRoutes;
         JSONArray jLegs;
@@ -87,7 +88,6 @@ public class DataParser {
 
                 value = "Distance: "+ distance.optString("text")+" Duration: "+duration.optString("text");
             }
-            txt_detail.setText(value);
 
         } catch (JSONException e) {
             e.printStackTrace();

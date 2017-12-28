@@ -5,14 +5,14 @@ import java.io.Serializable;
 /**
  * Created by hp pc on 06/11/2016.
  */
-public class PlaceDTO implements Serializable {
+public class BuildingDTO implements Serializable {
     private int id;
     private String placeName,placeDesc;
     private Double placeLong,placeLat;
     private boolean isFav;
     private int phone;
 
-    public PlaceDTO(int id, String placeName, String placeDesc, Double placeLong, Double placeLat, boolean isFav, int phone) {
+    public BuildingDTO(int id, String placeName, String placeDesc, Double placeLong, Double placeLat, boolean isFav, int phone) {
         this.id = id;
         this.placeName = placeName;
         this.placeDesc = placeDesc;
@@ -22,7 +22,7 @@ public class PlaceDTO implements Serializable {
         this.phone = phone;
     }
 
-    public PlaceDTO() {
+    public BuildingDTO() {
     }
 
     public boolean isFav() {

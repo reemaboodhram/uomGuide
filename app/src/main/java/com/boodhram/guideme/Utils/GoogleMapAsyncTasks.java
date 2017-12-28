@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.boodhram.guideme.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -30,20 +31,17 @@ import java.util.List;
  */
 public class GoogleMapAsyncTasks {
     // Fetches data from url passed
-/*
-
     public static class FetchUrl extends AsyncTask<String, Void, String> {
 
         public GoogleMap map;
         public String distanceDuration;
         private Dialog loadingDialog;
         private Context context;
-        private TextView txt_detail;
+
         Resources res;
-        public FetchUrl(GoogleMap googleMap, Context ctx, TextView txt){
+        public FetchUrl(GoogleMap googleMap, Context ctx){
             this.map = googleMap;
             this.context = ctx;
-            this.txt_detail = txt;
             res = context.getResources();
         }
 
@@ -81,7 +79,7 @@ public class GoogleMapAsyncTasks {
                 JSONObject jObject = new JSONObject(data);
                 DataParser parser = new DataParser();
                 // Starts parsing data
-                val = parser.getDurationDistance(jObject,txt_detail);
+                val = parser.getDurationDistance(jObject);
                 setDistanceDuration(val);
 
             } catch (Exception e) {
@@ -277,5 +275,5 @@ public class GoogleMapAsyncTasks {
                 Log.d("onPostExecute","without Polylines drawn");
             }
         }
-    }*/
+    }
 }

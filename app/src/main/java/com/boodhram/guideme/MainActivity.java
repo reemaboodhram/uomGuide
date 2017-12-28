@@ -7,7 +7,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.app.Dialog;
 import android.app.PendingIntent;
 
 import android.content.Intent;
@@ -16,12 +15,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.boodhram.guideme.GeoFencing.Constants;
 import com.boodhram.guideme.GeoFencing.GeofenceTransitionsIntentService;
-import com.boodhram.guideme.Utils.PlaceDTO;
-import com.boodhram.guideme.Utils.SmartBeachService;
+import com.boodhram.guideme.Utils.BuildingDTO;
+import com.boodhram.guideme.Utils.UomService;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -44,7 +42,7 @@ public class MainActivity extends AppCompatActivity
     private LocationRequest mLocationRequest;
     private final int UPDATE_INTERVAL =  3 * 60 * 1000; // 3 minutes
     private final int FASTEST_INTERVAL = 30 * 1000;  // 30 secs
-    SmartBeachService service;
+    UomService service;
     String TAG ="LOCATION SERVICE";
     private DrawerLayout drawer;
     protected ArrayList<Geofence> mGeofenceList;
@@ -55,13 +53,13 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        service = new SmartBeachService(MainActivity.this);
+        service = new UomService(MainActivity.this);
         mGeofenceList = new ArrayList<Geofence>();
         buildGoogleApiClient();
         // Get the geofences used. Geofence data is hard coded in this sample.
         populateGeofenceList();
 
-        btn_map = (Button) findViewById(R.id.btn_map);
+        btn_map = findViewById(R.id.btn_map);
         btn_map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,14 +105,14 @@ public class MainActivity extends AppCompatActivity
 
     public void populateGeofenceList() {
 
-        List<PlaceDTO> list = service.getList();
+        List<BuildingDTO> list = service.getList();
         if(!list.isEmpty()){
-            for (PlaceDTO placeDTO:list) {
+            for (BuildingDTO buildingDTO :list) {
                 mGeofenceList.add(new Geofence.Builder()
-                        .setRequestId(placeDTO.getPlaceName())
+                        .setRequestId(buildingDTO.getPlaceName())
                         .setCircularRegion(
-                                placeDTO.getPlaceLat(),
-                                placeDTO.getPlaceLong(),
+                                buildingDTO.getPlaceLat(),
+                                buildingDTO.getPlaceLong(),
                                 Constants.GEOFENCE_RADIUS_IN_METERS
                         )
                         .setExpirationDuration(Constants.GEOFENCE_EXPIRATION_IN_MILLISECONDS)

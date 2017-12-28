@@ -1,16 +1,30 @@
 package com.boodhram.guideme;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.boodhram.guideme.R;
+import com.azoft.carousellayoutmanager.CarouselLayoutManager;
+import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener;
+import com.azoft.carousellayoutmanager.CenterScrollListener;
+import com.boodhram.guideme.Utils.BuildingDTO;
+import com.boodhram.guideme.Utils.ConnectivityHelper;
+import com.boodhram.guideme.Utils.Constants;
+import com.boodhram.guideme.Utils.GoogleMapAsyncTasks;
+import com.boodhram.guideme.Utils.UomService;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -25,29 +39,36 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
+        LocationListener, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
+    UomService service;
+    List<BuildingDTO> list;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
+        service = new UomService(MapsActivity.this);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
         }
+        list = service.getList();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
     }
 
 
@@ -63,8 +84,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        googleMap.setOnMarkerClickListener(MapsActivity.this);
+        if(!list.isEmpty()){
+            LatLng latLng = new LatLng(list.get(0).getPlaceLat(),list.get(0).getPlaceLong());
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+            setMarkersToMap(list);
+        }
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this,
@@ -77,6 +104,74 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         else {
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
+        }
+
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                if(!marker.getTitle().equalsIgnoreCase( "Current Position")){
+                    showDescription(marker);
+                }
+
+
+            }
+        });
+    }
+
+    private void showDescription(Marker marker) {
+        final Dialog dialog = new Dialog(MapsActivity.this,R.style.WalkthroughTheme);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.custom_dialog);
+        BuildingDTO buildingDTO = getMarkerBySnippet(marker.getSnippet());
+        TextView txt_phone =  dialog.findViewById(R.id.txt_phone);
+        ImageView imgPhone =  dialog.findViewById(R.id.imgPhone);
+        ImageView imgWalk =  dialog.findViewById(R.id.imgWalk);
+        TextView txt_walk =  dialog.findViewById(R.id.txt_walk);
+
+        txt_phone.setOnClickListener(new PhoneListener(buildingDTO.getPhone()+""));
+        imgPhone.setOnClickListener(new PhoneListener(buildingDTO.getPhone()+""));
+
+        imgWalk.setOnClickListener(new WalkListener(marker,dialog));
+        txt_walk.setOnClickListener(new WalkListener(marker, dialog));
+
+        txt_phone.setText(buildingDTO.getPhone()+"");
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.setCancelable(true);
+        RecyclerView recyclerview = (RecyclerView) dialog.findViewById(R.id.recycler);
+        CarouselLayoutManager  layoutManager2 = new CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL);
+        recyclerview.setLayoutManager(layoutManager2);
+        recyclerview.setHasFixedSize(true);
+
+
+        recyclerview.addOnScrollListener(new CenterScrollListener());
+        layoutManager2.setPostLayoutListener(new CarouselZoomPostLayoutListener());
+        CarouselAdapterImages adapterPremium = new CarouselAdapterImages(this,buildingDTO);
+        recyclerview.setAdapter(adapterPremium);
+
+        dialog.show();
+    }
+
+    private BuildingDTO getMarkerBySnippet(String snippet) {
+        BuildingDTO building = null;
+        if(!list.isEmpty()){
+            for(BuildingDTO buildingDTO:list){
+                if(buildingDTO.getPlaceDesc().equalsIgnoreCase(snippet)){
+                    building = buildingDTO;
+                }
+            }
+        }
+        return building;
+    }
+
+    private void setMarkersToMap(List<BuildingDTO> placeDTOList) {
+        for(BuildingDTO place:placeDTOList){
+            mMap.addMarker(new MarkerOptions().
+                    position(new LatLng(place.getPlaceLat(),place.getPlaceLong()))
+                    .title(place.getPlaceName())
+                    .snippet(place.getPlaceDesc())
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
         }
     }
 
@@ -117,23 +212,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mCurrLocationMarker.remove();
         }
 
-        //Place current location marker
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title("Current Position");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        mCurrLocationMarker = mMap.addMarker(markerOptions);
-
-        //move map camera
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+        setcurrentPositionMarker();
 
         //stop location updates
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
 
+    }
+
+    private void setcurrentPositionMarker() {
+        //Place current location marker
+        Location location = mLastLocation;
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.title("Current Position");
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+        mCurrLocationMarker = mMap.addMarker(markerOptions);
     }
 
     @Override
@@ -206,4 +302,53 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // You can add here other case statements according to your requirement.
         }
     }
-}
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        marker.showInfoWindow();
+        return true;
+    }
+
+    private class PhoneListener implements View.OnClickListener {
+        String num;
+        public PhoneListener(String phone) {
+            this.num = phone;
+        }
+
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(MapsActivity.this,"Phone "+ num,Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class WalkListener implements View.OnClickListener {
+        Marker marker;
+        Dialog dialog;
+        public WalkListener(Marker mark, Dialog dialog) {
+            this.marker = mark;
+            this.dialog = dialog;
+        }
+
+        @Override
+        public void onClick(View view) {
+            //Check for gps on
+            if(mLastLocation != null){
+             if(ConnectivityHelper.isConnected(MapsActivity.this)){
+                 mMap.clear();
+
+                        String url = GoogleMapAsyncTasks.getUrl(new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()), marker.getPosition(), Constants.MODE_WALKING);
+                        GoogleMapAsyncTasks.FetchUrl FetchUrl = new GoogleMapAsyncTasks.FetchUrl(mMap,MapsActivity.this);
+                        FetchUrl.execute(url);
+                        setMarkersToMap(list);
+                        setcurrentPositionMarker();
+                        dialog.dismiss();
+                    }
+                    else{
+                        Toast.makeText(MapsActivity.this,getResources().getString(R.string.internet_off),Toast
+                                .LENGTH_SHORT).show();
+                    }
+                }
+
+            }
+        }
+    }
