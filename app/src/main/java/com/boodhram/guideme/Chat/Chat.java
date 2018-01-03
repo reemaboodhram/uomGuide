@@ -13,6 +13,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.boodhram.guideme.R;
+import com.boodhram.guideme.Utils.AccountDTO;
+import com.boodhram.guideme.Utils.SharedPreferenceHelper;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -40,10 +42,11 @@ public class Chat extends AppCompatActivity {
         sendButton = (ImageView)findViewById(R.id.sendButton);
         messageArea = (EditText)findViewById(R.id.messageArea);
         scrollView = (ScrollView)findViewById(R.id.scrollView);
-
+        final AccountDTO accountDTO = SharedPreferenceHelper.getAccountFromShared(Chat.this);
+        final String chatWith = SharedPreferenceHelper.getChatWithToShared(Chat.this);
         Firebase.setAndroidContext(this);
-        reference1 = new Firebase("https://guideme-7a3a9.firebaseio.com/messages/" + UserDetails.username + "_" + UserDetails.chatWith);
-        reference2 = new Firebase("https://guideme-7a3a9.firebaseio.com/messages/" + UserDetails.chatWith + "_" + UserDetails.username);
+        reference1 = new Firebase("https://guideme-7a3a9.firebaseio.com/messages/" + accountDTO.getUsername() + "_" + chatWith);
+        reference2 = new Firebase("https://guideme-7a3a9.firebaseio.com/messages/" + chatWith + "_" + accountDTO.getUsername());
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,10 +56,11 @@ public class Chat extends AppCompatActivity {
                 if(!messageText.equals("")){
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("message", messageText);
-                    map.put("user", UserDetails.username);
+                    map.put("user", accountDTO.getUsername());
                     reference1.push().setValue(map);
                     reference2.push().setValue(map);
                     messageArea.setText("");
+                    scrollView.fullScroll(View.FOCUS_DOWN);
                 }
             }
         });
@@ -68,11 +72,11 @@ public class Chat extends AppCompatActivity {
                 String message = map.get("message").toString();
                 String userName = map.get("user").toString();
 
-                if(userName.equals(UserDetails.username)){
+                if(userName.equals(accountDTO.getUsername())){
                     addMessageBox("You:-\n" + message, 1);
                 }
                 else{
-                    addMessageBox(UserDetails.chatWith + ":-\n" + message, 2);
+                    addMessageBox(chatWith + ":-\n" + message, 2);
                 }
             }
 

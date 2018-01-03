@@ -16,7 +16,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.boodhram.guideme.MainActivity;
 import com.boodhram.guideme.R;
+import com.boodhram.guideme.Utils.AccountDTO;
+import com.boodhram.guideme.Utils.SharedPreferenceHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +39,13 @@ public class Login extends AppCompatActivity {
         username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
         loginButton = (Button)findViewById(R.id.loginButton);
+
+        AccountDTO accountDTO = SharedPreferenceHelper.getAccountFromShared(Login.this);
+        if(accountDTO != null && accountDTO.getUsername() != null){
+            Intent intent = new Intent(Login.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         registerUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,9 +86,12 @@ public class Login extends AppCompatActivity {
                                         Toast.makeText(Login.this, "user not found", Toast.LENGTH_LONG).show();
                                     }
                                     else if(obj.getJSONObject(user).getString("password").equals(pass)){
-                                        UserDetails.username = user;
-                                        UserDetails.password = pass;
-                                        startActivity(new Intent(Login.this, Users.class));
+                                        AccountDTO accountDTO = new AccountDTO();
+                                        accountDTO.setUsername(user);
+                                        accountDTO.setPassword(pass);
+                                        SharedPreferenceHelper.putAccountInSharedPrefence(Login.this,accountDTO);
+                                        startActivity(new Intent(Login.this, MainActivity.class));
+                                        finish();
                                     }
                                     else {
                                         Toast.makeText(Login.this, "incorrect password", Toast.LENGTH_LONG).show();

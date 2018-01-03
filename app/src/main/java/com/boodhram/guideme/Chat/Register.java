@@ -16,7 +16,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.boodhram.guideme.MainActivity;
 import com.boodhram.guideme.R;
+import com.boodhram.guideme.Utils.AccountDTO;
+import com.boodhram.guideme.Utils.SharedPreferenceHelper;
 import com.firebase.client.Firebase;
 
 import org.json.JSONException;
@@ -91,6 +94,13 @@ public class Register extends AppCompatActivity {
                                                 if (!obj.has(user)) {
                                                     reference.child(user).child("password").setValue(pass);
                                                     Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
+                                                    AccountDTO accountDTO = new AccountDTO();
+                                                    accountDTO.setUsername(user);
+                                                    accountDTO.setPassword(pass);
+                                                    SharedPreferenceHelper.putAccountInSharedPrefence(Register.this,accountDTO);
+                                                    Intent intent = new Intent(Register.this, MainActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
                                                 } else {
                                                     Toast.makeText(Register.this, "username already exists", Toast.LENGTH_LONG).show();
                                                 }

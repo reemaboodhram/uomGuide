@@ -20,11 +20,14 @@ import android.widget.Toast;
 import com.azoft.carousellayoutmanager.CarouselLayoutManager;
 import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener;
 import com.azoft.carousellayoutmanager.CenterScrollListener;
+import com.boodhram.guideme.Utils.AccountDTO;
 import com.boodhram.guideme.Utils.BuildingDTO;
 import com.boodhram.guideme.Utils.ConnectivityHelper;
-import com.boodhram.guideme.Utils.Constants;
+import com.boodhram.guideme.Utils.CONSTANTS;
 import com.boodhram.guideme.Utils.GoogleMapAsyncTasks;
+import com.boodhram.guideme.Utils.SharedPreferenceHelper;
 import com.boodhram.guideme.Utils.UomService;
+import com.boodhram.guideme.Utils.Utils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -53,12 +56,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LocationRequest mLocationRequest;
     UomService service;
     List<BuildingDTO> list;
+    private AccountDTO accountDTO;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        accountDTO = SharedPreferenceHelper.getAccountFromShared(MapsActivity.this);
         service = new UomService(MapsActivity.this);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
@@ -230,6 +235,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markerOptions.title("Current Position");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         mCurrLocationMarker = mMap.addMarker(markerOptions);
+        Utils.sendLastLocationToServer(MapsActivity.this,mLastLocation,accountDTO.getUsername(),false);
     }
 
     @Override
@@ -336,7 +342,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
              if(ConnectivityHelper.isConnected(MapsActivity.this)){
                  mMap.clear();
 
-                        String url = GoogleMapAsyncTasks.getUrl(new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()), marker.getPosition(), Constants.MODE_WALKING);
+                        String url = GoogleMapAsyncTasks.getUrl(new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()), marker.getPosition(), CONSTANTS.MODE_WALKING);
                         GoogleMapAsyncTasks.FetchUrl FetchUrl = new GoogleMapAsyncTasks.FetchUrl(mMap,MapsActivity.this);
                         FetchUrl.execute(url);
                         setMarkersToMap(list);

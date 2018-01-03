@@ -1,13 +1,32 @@
 package com.boodhram.guideme.Utils;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.location.Location;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.boodhram.guideme.Chat.Register;
+import com.boodhram.guideme.MainActivity;
+import com.firebase.client.Firebase;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Iterator;
 
 /**
  * Created by H on 19-Nov-16.
@@ -76,4 +95,67 @@ public class Utils {
 
         return false;
     }
+
+    public static void sendLastLocationToServer(final Context context, final Location lastLocation, final String user, final Boolean showProgress) {
+        Firebase.setAndroidContext(context);
+        final ProgressDialog pd = new ProgressDialog(context);
+        pd.setMessage("Loading...");
+        if(showProgress){
+            pd.show();
+        }
+
+        String url = "https://guideme-7a3a9.firebaseio.com/locations.json";
+
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
+            @Override
+            public void onResponse(String s) {
+                Firebase reference = new Firebase("https://guideme-7a3a9.firebaseio.com/locations");
+                Long timestamp = Calendar.getInstance().getTimeInMillis();
+                if(s.equals("null")) {
+                    reference.child(user).child("lat").setValue(lastLocation.getLatitude());
+                    reference.child(user).child("long").setValue(lastLocation.getLongitude());
+                    reference.child(user).child("timestamp").setValue(timestamp);
+
+                }
+                else {
+                    try {
+                        JSONObject obj = new JSONObject(s);
+
+                        Iterator i = obj.keys();
+                        String key = "";
+
+                        while(i.hasNext()){
+                            key = i.next().toString();
+                            JSONObject jsonObject = obj.getJSONObject(key);
+                        }
+                        reference.child(user).child("lat").setValue(lastLocation.getLatitude());
+                        reference.child(user).child("long").setValue(lastLocation.getLongitude());
+                        reference.child(user).child("timestamp").setValue(timestamp);
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if(showProgress){
+                    pd.dismiss();
+                }
+            }
+
+        },new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                System.out.println("" + volleyError );
+                if(showProgress){
+                    pd.dismiss();
+                }
+            }
+        });
+
+        RequestQueue rQueue = Volley.newRequestQueue(context);
+        rQueue.add(request);
+    }
+
+
 }

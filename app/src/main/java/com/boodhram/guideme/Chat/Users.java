@@ -17,6 +17,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.boodhram.guideme.R;
+import com.boodhram.guideme.Utils.AccountDTO;
+import com.boodhram.guideme.Utils.SharedPreferenceHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,13 +72,14 @@ public class Users extends AppCompatActivity {
         usersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                UserDetails.chatWith = al.get(position);
+                SharedPreferenceHelper.setChatWithToShared(Users.this,al.get(position));
                 startActivity(new Intent(Users.this, Chat.class));
             }
         });
     }
 
     public void doOnSuccess(String s){
+        AccountDTO accountDTO = SharedPreferenceHelper.getAccountFromShared(Users.this);
         try {
             JSONObject obj = new JSONObject(s);
 
@@ -86,7 +89,7 @@ public class Users extends AppCompatActivity {
             while(i.hasNext()){
                 key = i.next().toString();
 
-                if(!key.equals(UserDetails.username)) {
+                if(!key.equals(accountDTO.getUsername())) {
                     al.add(key);
                 }
 

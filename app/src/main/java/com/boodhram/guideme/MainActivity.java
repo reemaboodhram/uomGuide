@@ -16,10 +16,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.boodhram.guideme.Chat.Users;
 import com.boodhram.guideme.GeoFencing.Constants;
 import com.boodhram.guideme.GeoFencing.GeofenceTransitionsIntentService;
+import com.boodhram.guideme.Utils.AccountDTO;
 import com.boodhram.guideme.Utils.BuildingDTO;
+import com.boodhram.guideme.Utils.CONSTANTS;
+import com.boodhram.guideme.Utils.SharedPreferenceHelper;
 import com.boodhram.guideme.Utils.UomService;
+import com.boodhram.guideme.Utils.Utils;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -31,6 +39,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import java.util.ArrayList;
 
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -49,6 +58,7 @@ public class MainActivity extends AppCompatActivity
     protected GoogleApiClient mGoogleApiClient;
     private Button btn_map;
     private Boolean isGeofenceAdded = false;
+    private AccountDTO accountDTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +69,73 @@ public class MainActivity extends AppCompatActivity
         buildGoogleApiClient();
         // Get the geofences used. Geofence data is hard coded in this sample.
         populateGeofenceList();
-
+        accountDTO = SharedPreferenceHelper.getAccountFromShared(MainActivity.this);
+        findViewById();
         btn_map = findViewById(R.id.btn_map);
         btn_map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this,MapsActivity.class);
                 startActivity(i);
+            }
+        });
+
+
+
+    }
+
+    private void findViewById() {
+
+        //floating menu
+
+        final FloatingActionMenu materialDesignFAM = (FloatingActionMenu) findViewById(R.id.material_design_android_floating_action_menu);
+        final FloatingActionButton floatingActionFood = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item1);
+        FloatingActionButton floatingActionWater = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item2);
+        final FloatingActionButton floatingActionExercise = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item3);
+        final FloatingActionButton floatingActionWeight = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item4);
+
+
+        materialDesignFAM.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
+            @Override
+            public void onMenuToggle(boolean opened) {
+
+                if (opened) {
+                    materialDesignFAM.setClosedOnTouchOutside(true);
+                }
+            }
+        });
+
+        floatingActionFood.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                materialDesignFAM.close(false);
+                if(lastLocation!=null){
+                    Utils.sendLastLocationToServer(MainActivity.this,lastLocation,accountDTO.getUsername(),true);
+                }
+
+            }
+
+        });
+        floatingActionWater.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                materialDesignFAM.close(false);
+                SharedPreferenceHelper.clearall(MainActivity.this);
+
+            }
+        });
+
+
+        floatingActionExercise.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                materialDesignFAM.close(false);
+                Intent intent = new Intent(MainActivity.this, Users.class);
+                startActivity(intent);
+
+            }
+        });
+        floatingActionWeight.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                materialDesignFAM.close(false);
 
             }
         });
@@ -258,6 +328,17 @@ public class MainActivity extends AppCompatActivity
     public void onLocationChanged(Location location) {
         lastLocation = location;
         writeActualLocation(location);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 2) {
+            if(checkPermission()){
+                setListeners();
+            }
+        }
     }
 
 }
