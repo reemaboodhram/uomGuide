@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity
     protected ArrayList<Geofence> mGeofenceList;
     protected GoogleApiClient mGoogleApiClient;
     private Button btn_map;
+    private Boolean isGeofenceAdded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this,MapsActivity.class);
                 startActivity(i);
+
             }
         });
 
@@ -109,7 +111,7 @@ public class MainActivity extends AppCompatActivity
         if(!list.isEmpty()){
             for (BuildingDTO buildingDTO :list) {
                 mGeofenceList.add(new Geofence.Builder()
-                        .setRequestId(buildingDTO.getPlaceName())
+                        .setRequestId(buildingDTO.getId()+"")
                         .setCircularRegion(
                                 buildingDTO.getPlaceLat(),
                                 buildingDTO.getPlaceLong(),
@@ -120,6 +122,8 @@ public class MainActivity extends AppCompatActivity
                         .build());
             }
         }
+
+
 
     }
 
@@ -146,8 +150,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onConnected(Bundle connectionHint) {
         Log.e("LOCATION SERVICE ","onConnected");
+        if(!isGeofenceAdded){
+            setListeners();
+        }
+
         getLastKnownLocation();
-        setListeners();
     }
 
     // Get last known location
@@ -218,6 +225,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onResult(Status status) {
         if (status.isSuccess()) {
+            isGeofenceAdded = true;
             Toast.makeText(
                     this,
                     "Geofences Added",

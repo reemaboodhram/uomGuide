@@ -14,6 +14,8 @@ import android.util.Log;
 
 
 import com.boodhram.guideme.R;
+import com.boodhram.guideme.Utils.BuildingDTO;
+import com.boodhram.guideme.Utils.UomService;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofenceStatusCodes;
 import com.google.android.gms.location.GeofencingEvent;
@@ -39,31 +41,36 @@ public class GeofenceTransitionsIntentService extends IntentService {
             return;
         }
         else{
-            String description = getGeofenceTransitionDetails(event);
-            sendNotification(description);
+            String geoFenceId = getGeofenceTransitionDetails(event);
+            if(geoFenceId!= null){
+                int id = Integer.valueOf(geoFenceId);
+                BuildingDTO buildingDTO = new UomService(this).getplaceById(id);
+                sendNotification(buildingDTO);
+            }
+
         }
     }
 
     private static String getGeofenceTransitionDetails(GeofencingEvent event) {
-        String transitionString =
-                GeofenceStatusCodes.getStatusCodeString(event.getGeofenceTransition());
-        List triggeringIDs = new ArrayList();
-        for (Geofence geofence : event.getTriggeringGeofences()) {
-            triggeringIDs.add(geofence.getRequestId());
+
+        String geoFenceId = null;
+        if(!event.getTriggeringGeofences().isEmpty()){
+            geoFenceId = event.getTriggeringGeofences().get(0).getRequestId();
         }
-        return String.format("%s: %s", "Alert :", TextUtils.join(", ", triggeringIDs));
+
+        return geoFenceId;
     }
 
-    private void sendNotification(String notificationDetails) {
+    private void sendNotification(BuildingDTO buildingDTO) {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.bubble_in)
                         .setContentTitle(getString(R.string.app_name))
-                        .setContentText(notificationDetails);
+                        .setContentText(buildingDTO.getPlaceName());
         int NOTIFICATION_ID = 12345;
 
         Intent targetIntent = new Intent(this, NotificationActivity.class);
-        targetIntent.putExtra("notif",notificationDetails);
+        targetIntent.putExtra("notif",buildingDTO.getPlaceDesc());
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(contentIntent);
         NotificationManager nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
