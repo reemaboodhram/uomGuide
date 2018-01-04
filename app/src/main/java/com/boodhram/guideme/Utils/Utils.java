@@ -15,6 +15,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.boodhram.guideme.Chat.Register;
 import com.boodhram.guideme.MainActivity;
+import com.boodhram.guideme.SimpleMapActivity;
 import com.firebase.client.Firebase;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
@@ -158,4 +159,57 @@ public class Utils {
     }
 
 
+    public static void sendMeetingPointToServer(final Context context, final LatLng lastLocation, final String username) {
+        Firebase.setAndroidContext(context);
+        final ProgressDialog pd = new ProgressDialog(context);
+        pd.setMessage("Loading...");
+        pd.show();
+
+        String url = "https://guideme-7a3a9.firebaseio.com/meetup.json";
+
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
+            @Override
+            public void onResponse(String s) {
+                Firebase reference = new Firebase("https://guideme-7a3a9.firebaseio.com/meetup");
+                Long timestamp = Calendar.getInstance().getTimeInMillis();
+                if(s.equals("null")) {
+                    reference.child("point").child("lat").setValue(lastLocation.latitude);
+                    reference.child("point").child("long").setValue(lastLocation.longitude);
+                    reference.child("point").child("timestamp").setValue(timestamp);
+                    reference.child("point").child("user").setValue(username);
+
+                }
+                else {
+                    try {
+                        JSONObject obj = new JSONObject(s);
+
+                        reference.child("point").child("lat").setValue(lastLocation.latitude);
+                        reference.child("point").child("long").setValue(lastLocation.longitude);
+                        reference.child("point").child("timestamp").setValue(timestamp);
+                        reference.child("point").child("user").setValue(username);
+
+
+                    } catch (JSONException e) {
+                        Toast.makeText(context, "Could not send to server", Toast.LENGTH_LONG).show();
+                        e.printStackTrace();
+                    }
+                }
+
+
+                pd.dismiss();
+
+            }
+
+        },new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                System.out.println("" + volleyError );
+                pd.dismiss();
+
+            }
+        });
+
+        RequestQueue rQueue = Volley.newRequestQueue(context);
+        rQueue.add(request);
+    }
 }
