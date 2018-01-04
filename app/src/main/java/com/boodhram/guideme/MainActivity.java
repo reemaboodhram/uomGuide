@@ -132,6 +132,8 @@ public class MainActivity extends AppCompatActivity
         fab_myfriends.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 materialDesignFAM.close(false);
+                Intent i = new Intent(MainActivity.this,FriendsMapActivity.class);
+                startActivity(i);
 
             }
         });

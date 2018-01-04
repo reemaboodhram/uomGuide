@@ -50,7 +50,6 @@ public class SimpleMapActivity extends FragmentActivity implements OnMapReadyCal
       GoogleMap.OnMarkerClickListener,GoogleMap.OnMarkerDragListener {
 
     private GoogleMap mMap;
-    Marker mCurrLocationMarker;
     private AccountDTO accountDTO;
     Marker markerOptions;
 

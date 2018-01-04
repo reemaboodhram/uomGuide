@@ -36,11 +36,16 @@
         <activity android:name=".GeoFencing.NotificationActivity" />
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_map_fragment"></activity>        <activity
+            android:label="@string/title_activity_map_fragment"></activity>
+        <activity
             android:name=".SimpleMapActivity"
             android:label="@string/title_activity_map_fragment"></activity>
 
-       <!-- <activity android:name=".Chat.Login"> </activity>-->
+        <activity
+            android:name=".FriendsMapActivity"
+            android:label="@string/title_activity_map_fragment"></activity>
+
+        <!-- <activity android:name=".Chat.Login"> </activity>-->
 
         <activity android:name=".MainActivity" />
         <activity android:name=".Chat.Register" />

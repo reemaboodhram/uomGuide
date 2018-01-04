@@ -14,11 +14,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.boodhram.guideme.Chat.Register;
+import com.boodhram.guideme.FriendsMapActivity;
 import com.boodhram.guideme.MainActivity;
 import com.boodhram.guideme.SimpleMapActivity;
 import com.firebase.client.Firebase;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 
@@ -26,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Iterator;
 
@@ -191,6 +195,75 @@ public class Utils {
 
                     } catch (JSONException e) {
                         Toast.makeText(context, "Could not send to server", Toast.LENGTH_LONG).show();
+                        e.printStackTrace();
+                    }
+                }
+
+
+                pd.dismiss();
+
+            }
+
+        },new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                System.out.println("" + volleyError );
+                pd.dismiss();
+
+            }
+        });
+
+        RequestQueue rQueue = Volley.newRequestQueue(context);
+        rQueue.add(request);
+    }
+
+    public static void getFriendOnMapMarkers(final Context context,final GoogleMap mMap) {
+        Firebase.setAndroidContext(context);
+        final ProgressDialog pd = new ProgressDialog(context);
+        pd.setMessage("Loading...");
+        pd.show();
+
+
+        String url = "https://guideme-7a3a9.firebaseio.com/locations.json";
+
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
+            @Override
+            public void onResponse(String s) {
+                Firebase reference = new Firebase("https://guideme-7a3a9.firebaseio.com/locations");
+                Long timestamp = Calendar.getInstance().getTimeInMillis();
+                if(s.equals("null")) {
+                    Toast.makeText(context, "No locations found", Toast.LENGTH_LONG).show();
+
+                }
+                else {
+                    try {
+                        JSONObject obj = new JSONObject(s);
+
+                        Iterator i = obj.keys();
+                        String key = "";
+                        SimpleDateFormat simpleDateFormat =
+                                new SimpleDateFormat("EEE dd MMM HH:mm");
+                        while(i.hasNext()){
+                            key = i.next().toString();
+                            JSONObject jsonObject = obj.getJSONObject(key);
+                            Double lat = jsonObject.optDouble("lat");
+                            Double lon = jsonObject.optDouble("long");
+                            Long ts = jsonObject.getLong("timestamp");
+                            Calendar cal = Calendar.getInstance();
+                            cal.setTimeInMillis(ts);
+
+                            if(lat!=null && lon !=null && ts!= null){
+                                mMap.addMarker(new MarkerOptions().
+                                        position(new LatLng(lat,lon))
+                                        .title(key)
+                                        .snippet(simpleDateFormat.format(cal.getTime()))
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                            }
+                        }
+
+
+
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
