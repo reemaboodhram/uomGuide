@@ -58,7 +58,7 @@
         fab:menu_showShadow="true">
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/material_design_floating_action_menu_item1"
+            android:id="@+id/fab_logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -67,11 +67,11 @@
             android:scaleType="centerInside"
             android:src="@drawable/menu_apps_on"
             fab:fab_colorNormal="@color/colorPrimary"
-            fab:fab_label="text1"
+            fab:fab_label="@string/title.logout"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/material_design_floating_action_menu_item2"
+            android:id="@+id/fab_meetingPoint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -79,11 +79,11 @@
             android:scaleType="centerInside"
             android:src="@drawable/menu_faq"
             fab:fab_colorNormal="@color/colorPrimary"
-            fab:fab_label="text1"
+            fab:fab_label="@string/title.meeting.point"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/material_design_floating_action_menu_item3"
+            android:id="@+id/fab_myfriends"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -91,11 +91,11 @@
             android:scaleType="centerInside"
             android:src="@drawable/menu_guide"
             fab:fab_colorNormal="@color/colorPrimary"
-            fab:fab_label="text1"
+            fab:fab_label="@string/title.spot.myfriends"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/material_design_floating_action_menu_item4"
+            android:id="@+id/fab_chat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -103,7 +103,19 @@
             android:scaleType="centerInside"
             android:src="@drawable/menu_objective"
             fab:fab_colorNormal="@color/colorPrimary"
-            fab:fab_label="text1"
+            fab:fab_label="@string/title.chat"
+            fab:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_myplaces"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="30dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/menu_objective"
+            fab:fab_colorNormal="@color/colorPrimary"
+            fab:fab_label="@string/title.place.of.interest"
             fab:fab_size="mini" />
 
     </com.github.clans.fab.FloatingActionMenu>

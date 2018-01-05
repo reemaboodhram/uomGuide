@@ -76,5 +76,13 @@
     <string name="returnmap">Return To Map</string>
     <string name="event_name">Event :</string>
     <string name="time">Time  :</string>
-    <string name="title_activity_maps">Map</string>
+
+    <string name="title.place.of.interest">UOM Places</string>
+    <string name="title.chat">Chat</string>
+    <string name="title.spot.myfriends">Spot My Friends</string>
+    <string name="title.meeting.point">Meeting Point</string>
+    <string name="title.logout">Log Out</string>
+
+
+
 </resources>

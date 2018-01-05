@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.boodhram.guideme.Chat.Login;
 import com.boodhram.guideme.Chat.Users;
 import com.boodhram.guideme.GeoFencing.Constants;
 import com.boodhram.guideme.GeoFencing.GeofenceTransitionsIntentService;
@@ -73,14 +74,6 @@ public class MainActivity extends AppCompatActivity
         populateGeofenceList();
         accountDTO = SharedPreferenceHelper.getAccountFromShared(MainActivity.this);
         findViewById();
-        btn_map = findViewById(R.id.btn_map);
-        btn_map.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this,MapsActivity.class);
-                startActivity(i);
-            }
-        });
 
         FirebaseMessaging.getInstance().subscribeToTopic("uom");
 
@@ -91,10 +84,11 @@ public class MainActivity extends AppCompatActivity
         //floating menu
 
         final FloatingActionMenu materialDesignFAM = (FloatingActionMenu) findViewById(R.id.material_design_android_floating_action_menu);
-        final FloatingActionButton floatingActionFood = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item1);
-        FloatingActionButton floatingActionWater = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item2);
-        final FloatingActionButton floatingActionExercise = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item3);
-        final FloatingActionButton floatingActionWeight = (FloatingActionButton) findViewById(R.id.material_design_floating_action_menu_item4);
+        final FloatingActionButton fab_meetingPoint = (FloatingActionButton) findViewById(R.id.fab_meetingPoint);
+        final FloatingActionButton fab_logout = (FloatingActionButton) findViewById(R.id.fab_logout);
+        final FloatingActionButton fab_myfriends = (FloatingActionButton) findViewById(R.id.fab_myfriends);
+        final FloatingActionButton fab_chat = (FloatingActionButton) findViewById(R.id.fab_chat);
+        final FloatingActionButton fab_myplaces = (FloatingActionButton) findViewById(R.id.fab_myplaces);
 
 
         materialDesignFAM.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
@@ -107,27 +101,29 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        floatingActionFood.setOnClickListener(new View.OnClickListener() {
+        fab_myplaces.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                materialDesignFAM.close(false);
-                if(lastLocation!=null){
-                    Utils.sendLastLocationToServer(MainActivity.this,lastLocation,accountDTO.getUsername(),true);
-                }
+                Intent i = new Intent(MainActivity.this,MapsActivity.class);
+                startActivity(i);
+
 
             }
 
         });
-        floatingActionWater.setOnClickListener(new View.OnClickListener() {
+        fab_logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 materialDesignFAM.close(false);
                 SharedPreferenceHelper.clearall(MainActivity.this);
+                Intent login = new Intent(MainActivity.this, Login.class);
+                startActivity(login);
+                finish();
 
             }
         });
 
 
-        floatingActionExercise.setOnClickListener(new View.OnClickListener() {
+        fab_chat.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 materialDesignFAM.close(false);
                 Intent intent = new Intent(MainActivity.this, Users.class);
@@ -135,10 +131,20 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
-        floatingActionWeight.setOnClickListener(new View.OnClickListener() {
+        fab_myfriends.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 materialDesignFAM.close(false);
+                Intent i = new Intent(MainActivity.this,FriendsMapActivity.class);
+                startActivity(i);
 
+            }
+        });
+
+        fab_meetingPoint.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                materialDesignFAM.close(false);
+                Intent i = new Intent(MainActivity.this,SimpleMapActivity.class);
+                startActivity(i);
             }
         });
 
@@ -238,6 +244,9 @@ public class MainActivity extends AppCompatActivity
                 Log.i("LOCATION SERVICE", "LasKnown location. " +
                         "Long: " + lastLocation.getLongitude() +
                         " | Lat: " + lastLocation.getLatitude());
+                if(lastLocation!=null){
+                    Utils.sendLastLocationToServer(MainActivity.this,lastLocation,accountDTO.getUsername(),false);
+                }
                 writeLastLocation();
                 startLocationUpdates();
             } else {
