@@ -44,6 +44,14 @@
         <activity android:name=".Chat.Register" />
         <activity android:name=".Chat.Users" />
         <activity android:name=".Chat.Chat" />
+
+        <service
+            android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

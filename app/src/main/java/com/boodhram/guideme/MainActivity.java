@@ -37,6 +37,8 @@ import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import java.util.ArrayList;
 
 import java.util.Date;
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
+        FirebaseMessaging.getInstance().subscribeToTopic("uom");
 
     }
 
