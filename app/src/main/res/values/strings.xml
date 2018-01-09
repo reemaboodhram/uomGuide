@@ -83,6 +83,12 @@
     <string name="title.meeting.point">Meeting Point</string>
     <string name="title.logout">Log Out</string>
 
-
+    <string name="faculty_label">University of Mauritius consists of 6 Faculties</string>
+    <string name="faculty_foa">Faculty of Agriculture</string>
+    <string name="faculty_foe">Faculty of Engineering</string>
+    <string name="faculty_fos">Faculty of Science</string>
+    <string name="faculty_foicdt">Faculty of Information, Communication and Digital Technologies</string>
+    <string name="faculty_fsssh">Faculty of Social Sciences &amp; Humanities</string>
+    <string name="faculty_flm">Faculty of Management</string>
 
 </resources>
