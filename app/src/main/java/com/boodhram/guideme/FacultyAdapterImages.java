@@ -8,9 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import com.boodhram.guideme.Utils.BuildingDTO;
-import com.boodhram.guideme.Utils.UomService;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,22 +20,21 @@ import java.util.List;
 class FacultyAdapterImages extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private Context mContext;
     List<ImageBuilding> list;
-    public FacultyAdapterImages(Context context, BuildingDTO buildingDTO) {
+    public FacultyAdapterImages(Context context) {
         this.mContext = context;
-        this.list = populateList(buildingDTO);
+        this.list = populateList();
     }
 
-    private List<ImageBuilding> populateList(BuildingDTO buildingDTO) {
-        BuildingDTO dto = new UomService(mContext).getplaceById(buildingDTO.getId());
+    private List<ImageBuilding> populateList() {
         List<ImageBuilding> list = new ArrayList<>();
         Resources res = mContext.getResources();
         list.add(new ImageBuilding((R.drawable.a1),res.getString(R.string.faculty_label)));
-        list.add(new ImageBuilding((R.drawable.a1),res.getString(R.string.faculty_flm)));
-        list.add(new ImageBuilding((R.drawable.a1),res.getString(R.string.faculty_fos)));
-        list.add(new ImageBuilding((R.drawable.a1),res.getString(R.string.faculty_foe)));
-        list.add(new ImageBuilding((R.drawable.a1),res.getString(R.string.faculty_foa)));
-        list.add(new ImageBuilding((R.drawable.a1),res.getString(R.string.faculty_fsssh)));
-        list.add(new ImageBuilding((R.drawable.a1),res.getString(R.string.faculty_foicdt)));
+        list.add(new ImageBuilding((R.drawable.a2),res.getString(R.string.faculty_flm)));
+        list.add(new ImageBuilding((R.drawable.a3),res.getString(R.string.faculty_fos)));
+        list.add(new ImageBuilding((R.drawable.a4),res.getString(R.string.faculty_foe)));
+        list.add(new ImageBuilding((R.drawable.a5),res.getString(R.string.faculty_foa)));
+        list.add(new ImageBuilding((R.drawable.a6),res.getString(R.string.faculty_fsssh)));
+        list.add(new ImageBuilding((R.drawable.a7),res.getString(R.string.faculty_foicdt)));
 
         return list;
     }
@@ -46,16 +43,16 @@ class FacultyAdapterImages extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v;
         v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.viewholder_image, parent, false);
-        return new ImageViewHolder(v);
+                .inflate(R.layout.viewholder_faculty, parent, false);
+        return new FacultyViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ImageViewHolder view = (ImageViewHolder) holder;
+        FacultyViewHolder view = (FacultyViewHolder) holder;
         ImageBuilding dto = list.get(position);
-        view.image_premium.setImageDrawable(ContextCompat.getDrawable(mContext,dto.getResourceId()));
-
+        view.img_faculty.setImageDrawable(ContextCompat.getDrawable(mContext,dto.getResourceId()));
+        view.txt_faculty.setText(dto.getDescription());
     }
 
     @Override
@@ -74,11 +71,13 @@ class FacultyAdapterImages extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    private class ImageViewHolder extends ViewHolder {
-        ImageView image_premium;
-        ImageViewHolder(View v) {
+    private class FacultyViewHolder extends FacultyAdapterImages.ViewHolder {
+        ImageView img_faculty;
+        TextView txt_faculty;
+        FacultyViewHolder(View v) {
             super(v);
-            image_premium =  v.findViewById(R.id.image_premium);
+            img_faculty =  v.findViewById(R.id.img_faculty);
+            txt_faculty =  v.findViewById(R.id.txt_faculty);
 
 
         }

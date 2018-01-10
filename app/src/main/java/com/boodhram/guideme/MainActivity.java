@@ -12,11 +12,15 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.location.Location;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.azoft.carousellayoutmanager.CarouselLayoutManager;
+import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener;
+import com.azoft.carousellayoutmanager.CenterScrollListener;
 import com.boodhram.guideme.Chat.Login;
 import com.boodhram.guideme.Chat.Users;
 import com.boodhram.guideme.GeoFencing.Constants;
@@ -147,6 +151,17 @@ public class MainActivity extends AppCompatActivity
                 startActivity(i);
             }
         });
+
+        RecyclerView recyclerview =  findViewById(R.id.recycler_faculty);
+        CarouselLayoutManager layoutManager2 = new CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL);
+        recyclerview.setLayoutManager(layoutManager2);
+        recyclerview.setHasFixedSize(true);
+
+
+        recyclerview.addOnScrollListener(new CenterScrollListener());
+        layoutManager2.setPostLayoutListener(new CarouselZoomPostLayoutListener());
+        FacultyAdapterImages adapterPremium = new FacultyAdapterImages(this);
+        recyclerview.setAdapter(adapterPremium);
 
     }
 
