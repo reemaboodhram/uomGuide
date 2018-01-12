@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +45,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
+public class UomPlacesActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener, GoogleMap.OnMarkerClickListener {
@@ -57,14 +58,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     UomService service;
     List<BuildingDTO> list;
     private AccountDTO accountDTO;
-
+    Button btn_meeting_point;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        accountDTO = SharedPreferenceHelper.getAccountFromShared(MapsActivity.this);
-        service = new UomService(MapsActivity.this);
+        btn_meeting_point = findViewById(R.id.btn_meeting_point);
+        btn_meeting_point.setVisibility(View.INVISIBLE);
+        accountDTO = SharedPreferenceHelper.getAccountFromShared(UomPlacesActivity.this);
+        service = new UomService(UomPlacesActivity.this);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
         }
@@ -90,7 +93,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        googleMap.setOnMarkerClickListener(MapsActivity.this);
+        googleMap.setOnMarkerClickListener(UomPlacesActivity.this);
         if(!list.isEmpty()){
             LatLng latLng = new LatLng(list.get(0).getPlaceLat(),list.get(0).getPlaceLong());
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -125,7 +128,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void showDescription(Marker marker) {
-        final Dialog dialog = new Dialog(MapsActivity.this,R.style.WalkthroughTheme);
+        final Dialog dialog = new Dialog(UomPlacesActivity.this,R.style.WalkthroughTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.custom_dialog);
@@ -235,7 +238,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markerOptions.title("Current Position");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
         mCurrLocationMarker = mMap.addMarker(markerOptions);
-        Utils.sendLastLocationToServer(MapsActivity.this,mLastLocation,accountDTO.getUsername(),false);
+        Utils.sendLastLocationToServer(UomPlacesActivity.this,mLastLocation,accountDTO.getUsername(),false);
     }
 
     @Override
@@ -323,7 +326,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(MapsActivity.this,"Phone "+ num,Toast.LENGTH_SHORT).show();
+            Toast.makeText(UomPlacesActivity.this,"Phone "+ num,Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -339,18 +342,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         public void onClick(View view) {
             //Check for gps on
             if(mLastLocation != null){
-             if(ConnectivityHelper.isConnected(MapsActivity.this)){
+             if(ConnectivityHelper.isConnected(UomPlacesActivity.this)){
                  mMap.clear();
 
                         String url = GoogleMapAsyncTasks.getUrl(new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude()), marker.getPosition(), CONSTANTS.MODE_WALKING);
-                        GoogleMapAsyncTasks.FetchUrl FetchUrl = new GoogleMapAsyncTasks.FetchUrl(mMap,MapsActivity.this);
+                        GoogleMapAsyncTasks.FetchUrl FetchUrl = new GoogleMapAsyncTasks.FetchUrl(mMap,UomPlacesActivity.this);
                         FetchUrl.execute(url);
                         setMarkersToMap(list);
                         setcurrentPositionMarker();
                         dialog.dismiss();
                     }
                     else{
-                        Toast.makeText(MapsActivity.this,getResources().getString(R.string.internet_off),Toast
+                        Toast.makeText(UomPlacesActivity.this,getResources().getString(R.string.internet_off),Toast
                                 .LENGTH_SHORT).show();
                     }
                 }

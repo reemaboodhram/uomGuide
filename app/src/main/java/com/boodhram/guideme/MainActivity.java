@@ -30,7 +30,6 @@ import com.boodhram.guideme.GeoFencing.Constants;
 import com.boodhram.guideme.GeoFencing.GeofenceTransitionsIntentService;
 import com.boodhram.guideme.Utils.AccountDTO;
 import com.boodhram.guideme.Utils.BuildingDTO;
-import com.boodhram.guideme.Utils.CONSTANTS;
 import com.boodhram.guideme.Utils.SharedPreferenceHelper;
 import com.boodhram.guideme.Utils.UomService;
 import com.boodhram.guideme.Utils.Utils;
@@ -49,7 +48,6 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 
-import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -111,7 +109,8 @@ public class MainActivity extends AppCompatActivity
         fab_myplaces.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this,MapsActivity.class);
+                materialDesignFAM.close(false);
+                Intent i = new Intent(MainActivity.this,UomPlacesActivity.class);
                 startActivity(i);
 
 
@@ -141,7 +140,7 @@ public class MainActivity extends AppCompatActivity
         fab_myfriends.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 materialDesignFAM.close(false);
-                Intent i = new Intent(MainActivity.this,FriendsMapActivity.class);
+                Intent i = new Intent(MainActivity.this,SpotFriendsActivity.class);
                 startActivity(i);
 
             }
@@ -150,7 +149,7 @@ public class MainActivity extends AppCompatActivity
         fab_meetingPoint.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 materialDesignFAM.close(false);
-                Intent i = new Intent(MainActivity.this,SimpleMapActivity.class);
+                Intent i = new Intent(MainActivity.this,MeetingPointActivity.class);
                 startActivity(i);
             }
         });

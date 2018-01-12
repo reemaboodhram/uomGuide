@@ -60,7 +60,14 @@ public class Chat extends AppCompatActivity {
                     reference1.push().setValue(map);
                     reference2.push().setValue(map);
                     messageArea.setText("");
-                    scrollView.fullScroll(View.FOCUS_DOWN);
+                    scrollView.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            // TODO Auto-generated method stub
+                            scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                        }
+                    });
                 }
             }
         });
@@ -119,6 +126,12 @@ public class Chat extends AppCompatActivity {
         }
         textView.setLayoutParams(lp2);
         layout.addView(textView);
-        scrollView.fullScroll(View.FOCUS_DOWN);
+        scrollView.post(new Runnable() {
+
+            @Override
+            public void run() {
+                scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+            }
+        });
     }
 }

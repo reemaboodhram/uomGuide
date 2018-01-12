@@ -1,38 +1,14 @@
 package com.boodhram.guideme;
 
-import android.Manifest;
-import android.app.Dialog;
-import android.content.pm.PackageManager;
-import android.graphics.drawable.ColorDrawable;
-import android.location.Location;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.Window;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Button;
 import android.widget.Toast;
 
-import com.azoft.carousellayoutmanager.CarouselLayoutManager;
-import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener;
-import com.azoft.carousellayoutmanager.CenterScrollListener;
 import com.boodhram.guideme.Utils.AccountDTO;
-import com.boodhram.guideme.Utils.BuildingDTO;
-import com.boodhram.guideme.Utils.CONSTANTS;
-import com.boodhram.guideme.Utils.ConnectivityHelper;
-import com.boodhram.guideme.Utils.GoogleMapAsyncTasks;
 import com.boodhram.guideme.Utils.SharedPreferenceHelper;
-import com.boodhram.guideme.Utils.UomService;
 import com.boodhram.guideme.Utils.Utils;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -44,25 +20,58 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
-public class SimpleMapActivity extends FragmentActivity implements OnMapReadyCallback,
+public class MeetingPointActivity extends FragmentActivity implements OnMapReadyCallback,
       GoogleMap.OnMarkerClickListener,GoogleMap.OnMarkerDragListener {
 
     private GoogleMap mMap;
     private AccountDTO accountDTO;
     Marker markerOptions;
+    SimpleDateFormat simpleDateFormat =
+            new SimpleDateFormat("EEE dd MMM HH:mm");
+
+    Button btn_meeting_point;
+    private Integer mode = 0;
+    //0 - set meeting point
+    //1- view meeting point
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        accountDTO = SharedPreferenceHelper.getAccountFromShared(SimpleMapActivity.this);
+        btn_meeting_point = findViewById(R.id.btn_meeting_point);
+        accountDTO = SharedPreferenceHelper.getAccountFromShared(MeetingPointActivity.this);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        btn_meeting_point.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mode == 0){
+                    mMap.clear();
+                    //change map to view meeting point mode
+                    viewMeetingPoint(mMap);
+                    btn_meeting_point.setText("Setup Meeting Point");
+
+                    mode = 1;
+
+                }else {
+                    //change map to setup meeting point mode
+                    mMap.clear();
+                    setupMeetingPoint(mMap);
+                    btn_meeting_point.setText("View Meeting Point");
+
+                    mode = 0;
+                }
+            }
+        });
+
+    }
+
+    private void viewMeetingPoint(GoogleMap mMap) {
+        Utils.getMeetingPointFromServer(MeetingPointActivity.this,mMap);
     }
 
 
@@ -79,13 +88,19 @@ public class SimpleMapActivity extends FragmentActivity implements OnMapReadyCal
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        googleMap.setOnMarkerClickListener(SimpleMapActivity.this);
+        googleMap.setOnMarkerClickListener(MeetingPointActivity.this);
 
-        SimpleDateFormat simpleDateFormat =
-                new SimpleDateFormat("EEE dd MMM HH:mm");
+        LatLng latLng = new LatLng(-20.233378, 57.497468);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+
+        setupMeetingPoint(mMap);
+    }
+
+    private void setupMeetingPoint(GoogleMap mMap) {
         markerOptions =  mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(-20.233378, 57.497468))
-                .title(accountDTO.getUsername())
+                .title("Set meeting Point")
                 .snippet(simpleDateFormat.format(new Date()))
                 .draggable(true)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
@@ -95,9 +110,12 @@ public class SimpleMapActivity extends FragmentActivity implements OnMapReadyCal
 
             @Override
             public void onInfoWindowClick(Marker marker) {
-                Utils.sendMeetingPointToServer(SimpleMapActivity.this,markerOptions.getPosition(),accountDTO.getUsername());
+                Utils.sendMeetingPointToServer(MeetingPointActivity.this,markerOptions.getPosition(),accountDTO.getUsername());
             }
         });
+        LatLng latLng = new LatLng(-20.233378, 57.497468);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
     }
 
 
