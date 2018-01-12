@@ -16,6 +16,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.azoft.carousellayoutmanager.CarouselLayoutManager;
@@ -162,6 +165,25 @@ public class MainActivity extends AppCompatActivity
         layoutManager2.setPostLayoutListener(new CarouselZoomPostLayoutListener());
         FacultyAdapterImages adapterPremium = new FacultyAdapterImages(this);
         recyclerview.setAdapter(adapterPremium);
+
+        LinearLayout more_foe = findViewById(R.id.more_foe);
+        final TextView txt_foe = findViewById(R.id.txt_foe);
+        final TextView readmore_foe = findViewById(R.id.readmore_foe);
+        final ImageView img_more_foe = findViewById(R.id.img_more_foe);
+        more_foe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txt_foe.getVisibility() == View.VISIBLE){
+                    txt_foe.setVisibility(View.GONE);
+                    readmore_foe.setText(getText(R.string.see_more));
+                    img_more_foe.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.icon_down));
+                }else {
+                    txt_foe.setVisibility(View.VISIBLE);
+                    readmore_foe.setText(getText(R.string.see_less));
+                    img_more_foe.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.icon_up));
+                }
+            }
+        });
 
     }
 

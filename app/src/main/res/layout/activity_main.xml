@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.boodhram.guideme.MainActivity">
 
     <ScrollView
@@ -19,19 +20,114 @@
                 android:id="@+id/recycler_faculty"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:layout_marginTop="20dp" />
+                android:layout_marginTop="20dp">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:id="@+id/linearFOE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:animateLayoutChanges="true">
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".2"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="@string/faculty_foe"
+                    android:textColor="@color/colorDashboard2"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_weight=".2"
+                        android:scaleType="centerCrop"
+                        fab:srcCompat="@drawable/a4" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".8"
+                        android:gravity="left|center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="10dp"
+                        android:text="@string/label_foe"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/more_foe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/readmore_foe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/see_more"
+                        android:textColor="@color/colorDashboard" />
+
+                    <ImageView
+                        android:id="@+id/img_more_foe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/icon_down" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_foe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".8"
+                android:gravity="left|center"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="10dp"
+                android:text="@string/label_foe"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textStyle="italic"
+                android:visibility="gone" />
+
         </LinearLayout>
     </ScrollView>
 
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/material_design_android_floating_action_menu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:scaleType="fitCenter"
         fab:menu_animationDelayPerItem="50"
         fab:menu_buttonSpacing="0dp"
+        app:menu_backgroundColor="#ccffffff"
         fab:menu_colorRipple="#99FFFFFF"
         fab:menu_fab_size="normal"
         fab:menu_icon="@drawable/icon_fact_menu"
@@ -69,8 +165,8 @@
             android:layout_centerInParent="true"
             android:layout_margin="30dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleType="centerInside"
-            android:src="@drawable/menu_apps_on"
+            android:scaleType="fitStart"
+            android:src="@drawable/fab"
             fab:fab_colorNormal="@color/colorPrimary"
             fab:fab_label="@string/title.logout"
             fab:fab_size="mini" />
@@ -82,7 +178,7 @@
             android:layout_centerInParent="true"
             android:layout_margin="30dp"
             android:scaleType="centerInside"
-            android:src="@drawable/menu_faq"
+            android:src="@drawable/fab2"
             fab:fab_colorNormal="@color/colorPrimary"
             fab:fab_label="@string/title.meeting.point"
             fab:fab_size="mini" />
@@ -93,8 +189,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_margin="30dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/menu_guide"
+            android:scaleType="fitXY"
+            android:src="@drawable/fab3"
             fab:fab_colorNormal="@color/colorPrimary"
             fab:fab_label="@string/title.spot.myfriends"
             fab:fab_size="mini" />
@@ -105,8 +201,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_margin="30dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/menu_objective"
+            android:scaleType="fitCenter"
+            android:src="@drawable/fab4"
             fab:fab_colorNormal="@color/colorPrimary"
             fab:fab_label="@string/title.chat"
             fab:fab_size="mini" />
@@ -117,8 +213,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_margin="30dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/menu_objective"
+            android:scaleType="centerCrop"
+            android:src="@drawable/fab"
             fab:fab_colorNormal="@color/colorPrimary"
             fab:fab_label="@string/title.place.of.interest"
             fab:fab_size="mini" />
