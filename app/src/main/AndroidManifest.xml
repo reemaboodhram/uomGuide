@@ -33,24 +33,33 @@
 
         <service android:name=".GeoFencing.GeofenceTransitionsIntentService" />
 
-        <activity android:name=".GeoFencing.NotificationActivity" />
+        <activity android:name=".GeoFencing.NotificationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.UserDialog"/>
         <activity
             android:name=".UomPlacesActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_map_fragment"></activity>
         <activity
             android:name=".MeetingPointActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_map_fragment"></activity>
 
         <activity
             android:name=".SpotFriendsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_map_fragment"></activity>
 
         <!-- <activity android:name=".Chat.Login"> </activity>-->
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Chat.Register" />
-        <activity android:name=".Chat.Users" />
-        <activity android:name=".Chat.Chat" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Chat.Register"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Chat.Users"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Chat.Chat"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".MyFirebaseMessagingService">
