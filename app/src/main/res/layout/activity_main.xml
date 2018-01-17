@@ -25,6 +25,186 @@
             </android.support.v7.widget.RecyclerView>
 
             <LinearLayout
+                android:id="@+id/linearFLM"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:animateLayoutChanges="true">
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".2"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="@string/faculty_foe"
+                    android:textColor="@color/colorDashboard2"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_weight=".2"
+                        android:scaleType="centerCrop"
+                        fab:srcCompat="@drawable/a4" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".8"
+                        android:gravity="left|center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="10dp"
+                        android:text="@string/label_foe"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/more_flm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/readmore_flm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/see_more"
+                        android:textColor="@color/colorDashboard" />
+
+                    <ImageView
+                        android:id="@+id/img_more_flm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/icon_down" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_flm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".8"
+                android:gravity="left|center"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="10dp"
+                android:text="@string/label_foe"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textStyle="italic"
+                android:visibility="gone" />
+            <LinearLayout
+                android:id="@+id/linearFOS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:animateLayoutChanges="true">
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".2"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="@string/faculty_foe"
+                    android:textColor="@color/colorDashboard2"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_weight=".2"
+                        android:scaleType="centerCrop"
+                        fab:srcCompat="@drawable/a4" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".8"
+                        android:gravity="left|center"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="10dp"
+                        android:text="@string/label_foe"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/more_fos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/readmore_fos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/see_more"
+                        android:textColor="@color/colorDashboard" />
+
+                    <ImageView
+                        android:id="@+id/img_more_fos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/icon_down" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_fos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".8"
+                android:gravity="left|center"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="10dp"
+                android:text="@string/label_foe"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textStyle="italic"
+                android:visibility="gone" />
+
+
+            <LinearLayout
                 android:id="@+id/linearFOE"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -132,7 +312,7 @@
                     android:gravity="center"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:text="@string/faculty_foa"
+                    android:text="@string/faculty_foe"
                     android:textColor="@color/colorDashboard2"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -158,7 +338,7 @@
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingTop="10dp"
-                        android:text="@string/label_foe"
+                        android:text="@string/label_foa"
                         android:textSize="13sp" />
                 </LinearLayout>
 
@@ -186,8 +366,6 @@
                         android:layout_gravity="center"
                         android:src="@drawable/icon_down" />
                 </LinearLayout>
-
-
             </LinearLayout>
 
             <TextView
@@ -205,8 +383,9 @@
                 android:textSize="13sp"
                 android:textStyle="italic"
                 android:visibility="gone" />
+
             <LinearLayout
-                android:id="@+id/linearFLM"
+                android:id="@+id/linearFSSSH"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -249,12 +428,12 @@
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingTop="10dp"
-                        android:text="@string/label_foe"
+                        android:text="@string/label_fsssh"
                         android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/more_flm"
+                    android:id="@+id/more_fsssh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -264,14 +443,14 @@
                     android:visibility="visible">
 
                     <TextView
-                        android:id="@+id/readmore_flm"
+                        android:id="@+id/readmore_fsssh"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/see_more"
                         android:textColor="@color/colorDashboard" />
 
                     <ImageView
-                        android:id="@+id/img_more_flm"
+                        android:id="@+id/img_more_fsssh"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
@@ -280,7 +459,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/txt_flm"
+                android:id="@+id/txt_fsssh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".8"
@@ -296,7 +475,7 @@
                 android:visibility="gone" />
 
             <LinearLayout
-                android:id="@+id/linearFOE"
+                android:id="@+id/linearFOICDT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -339,12 +518,12 @@
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingTop="10dp"
-                        android:text="@string/label_foe"
+                        android:text="@string/label_foicdt"
                         android:textSize="13sp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/more_foe"
+                    android:id="@+id/more_foicdt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -354,14 +533,14 @@
                     android:visibility="visible">
 
                     <TextView
-                        android:id="@+id/readmore_foe"
+                        android:id="@+id/readmore_foicdt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/see_more"
                         android:textColor="@color/colorDashboard" />
 
                     <ImageView
-                        android:id="@+id/img_more_foe"
+                        android:id="@+id/img_more_foicdt"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
@@ -370,7 +549,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/txt_foe"
+                android:id="@+id/txt_foicdt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".8"
@@ -384,189 +563,6 @@
                 android:textSize="13sp"
                 android:textStyle="italic"
                 android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/linearFOA"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:animateLayoutChanges="true">
-
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".2"
-                    android:gravity="center"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:text="@string/faculty_foa"
-                    android:textColor="@color/colorDashboard2"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_weight=".2"
-                        android:scaleType="centerCrop"
-                        fab:srcCompat="@drawable/a4" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".8"
-                        android:gravity="left|center"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingTop="10dp"
-                        android:text="@string/label_foe"
-                        android:textSize="13sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/more_foa"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingLeft="10dp"
-                    android:visibility="visible">
-
-                    <TextView
-                        android:id="@+id/readmore_foa"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/see_more"
-                        android:textColor="@color/colorDashboard" />
-
-                    <ImageView
-                        android:id="@+id/img_more_foa"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/icon_down" />
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/txt_foa"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight=".8"
-                android:gravity="left|center"
-                android:paddingBottom="5dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="10dp"
-                android:text="@string/label_foe"
-                android:textAllCaps="false"
-                android:textSize="13sp"
-                android:textStyle="italic"
-                android:visibility="gone" />
-            <LinearLayout
-                android:id="@+id/linearFLM"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:animateLayoutChanges="true">
-
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".2"
-                    android:gravity="center"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:text="@string/faculty_foe"
-                    android:textColor="@color/colorDashboard2"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_weight=".2"
-                        android:scaleType="centerCrop"
-                        fab:srcCompat="@drawable/a4" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".8"
-                        android:gravity="left|center"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingTop="10dp"
-                        android:text="@string/label_foe"
-                        android:textSize="13sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/more_flm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingLeft="10dp"
-                    android:visibility="visible">
-
-                    <TextView
-                        android:id="@+id/readmore_flm"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/see_more"
-                        android:textColor="@color/colorDashboard" />
-
-                    <ImageView
-                        android:id="@+id/img_more_flm"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/icon_down" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/txt_flm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight=".8"
-                android:gravity="left|center"
-                android:paddingBottom="5dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="10dp"
-                android:text="@string/label_foe"
-                android:textAllCaps="false"
-                android:textSize="13sp"
-                android:textStyle="italic"
-                android:visibility="gone" />
-
-
 
         </LinearLayout>
     </ScrollView>
