@@ -4,13 +4,31 @@
     android:id="@+id/activity_notification"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:background="@drawable/border_blue_bgwhite"
+    android:orientation="vertical"
+    android:padding="20dp">
 
     <TextView
         android:id="@+id/txt_notif"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#dadcdada"
         android:padding="10dp"
         android:text="TextView" />
+
+    <LinearLayout
+        android:id="@+id/linearImages"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="left|center"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 </LinearLayout>

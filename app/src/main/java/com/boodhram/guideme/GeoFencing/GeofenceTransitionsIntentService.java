@@ -71,6 +71,7 @@ public class GeofenceTransitionsIntentService extends IntentService {
 
         Intent targetIntent = new Intent(this, NotificationActivity.class);
         targetIntent.putExtra("notif",buildingDTO.getPlaceDesc());
+        targetIntent.putExtra("id",buildingDTO.getId());
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(contentIntent);
         NotificationManager nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

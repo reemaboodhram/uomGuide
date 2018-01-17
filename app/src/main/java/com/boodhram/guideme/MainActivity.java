@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity
         service = new UomService(MainActivity.this);
         mGeofenceList = new ArrayList<Geofence>();
         buildGoogleApiClient();
-        
+
         populateGeofenceList();
         accountDTO = SharedPreferenceHelper.getAccountFromShared(MainActivity.this);
         findViewById();

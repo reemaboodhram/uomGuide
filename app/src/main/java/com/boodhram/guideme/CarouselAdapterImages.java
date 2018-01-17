@@ -20,7 +20,7 @@ import java.util.List;
  * Created by shaulkory on 12/28/2017.
  */
 
-class CarouselAdapterImages extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class CarouselAdapterImages extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private Context mContext;
     List<ImageBuilding> list;
     public CarouselAdapterImages(Context context, BuildingDTO buildingDTO) {
