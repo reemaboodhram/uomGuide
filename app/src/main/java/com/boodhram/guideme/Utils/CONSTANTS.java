@@ -8,4 +8,5 @@ public class CONSTANTS {
     public static final String ACCOUNT = "Account" ;
 
     public static final String CHATWITH = "chatWith";
+    public static final String UOM = "uom" ;
 }

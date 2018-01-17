@@ -94,6 +94,13 @@
     <string name="faculty_fsssh">Faculty of Social Sciences &amp; Humanities</string>
     <string name="faculty_flm">Faculty of Management</string>
 
-    <string name="label_foe">The faculty of engineering comprises of 2400 students and more than 100 lecturers</string>
+    <string name="label_foa">The faculty of Agriculture comprises of 2400 students and more than 100 lecturers</string>
+    <string name="label_foe">The faculty of Engineering comprises of 2400 students and more than 100 lecturers</string>
+    <string name="label_fos">The faculty of Science comprises of 2400 students and more than 100 lecturers</string>
+    <string name="label_foicdt">The faculty of Information, Communication and Digital Technologies comprises of 2400 students and more than 100 lecturers</string>
+    <string name="label_fsssh">The faculty of Social Sciences &amp; Humanities comprises of 2400 students and more than 100 lecturers</string>
+    <string name="label_flm">The faculty of Management comprises of 2400 students and more than 100 lecturers</string>
+
+
 
 </resources>

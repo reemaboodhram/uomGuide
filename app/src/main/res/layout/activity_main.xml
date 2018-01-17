@@ -34,7 +34,6 @@
                 android:animateLayoutChanges="true">
 
 
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -42,7 +41,7 @@
                     android:gravity="center"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:text="@string/faculty_foe"
+                    android:text="@string/faculty_flm"
                     android:textColor="@color/colorDashboard2"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -68,7 +67,7 @@
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingTop="10dp"
-                        android:text="@string/label_foe"
+                        android:text="@string/label_flm"
                         android:textSize="13sp" />
                 </LinearLayout>
 
@@ -112,7 +111,7 @@
                 android:textAllCaps="false"
                 android:textSize="13sp"
                 android:textStyle="italic"
-                android:visibility="gone" />
+                android:visibility="visible" />
             <LinearLayout
                 android:id="@+id/linearFOS"
                 android:layout_width="match_parent"
@@ -123,7 +122,6 @@
                 android:animateLayoutChanges="true">
 
 
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -131,7 +129,7 @@
                     android:gravity="center"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:text="@string/faculty_foe"
+                    android:text="@string/faculty_fos"
                     android:textColor="@color/colorDashboard2"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -157,7 +155,7 @@
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingTop="10dp"
-                        android:text="@string/label_foe"
+                        android:text="@string/label_fos"
                         android:textSize="13sp" />
                 </LinearLayout>
 
@@ -304,7 +302,6 @@
                 android:animateLayoutChanges="true">
 
 
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -312,7 +309,7 @@
                     android:gravity="center"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:text="@string/faculty_foe"
+                    android:text="@string/faculty_foa"
                     android:textColor="@color/colorDashboard2"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -394,7 +391,6 @@
                 android:animateLayoutChanges="true">
 
 
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -402,7 +398,7 @@
                     android:gravity="center"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:text="@string/faculty_foe"
+                    android:text="@string/faculty_fsssh"
                     android:textColor="@color/colorDashboard2"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -484,7 +480,6 @@
                 android:animateLayoutChanges="true">
 
 
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -492,7 +487,7 @@
                     android:gravity="center"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:text="@string/faculty_foe"
+                    android:text="@string/faculty_foicdt"
                     android:textColor="@color/colorDashboard2"
                     android:textSize="15sp"
                     android:textStyle="bold" />
