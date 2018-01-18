@@ -2,9 +2,6 @@ package com.boodhram.guideme.Utils;
 
 import java.io.Serializable;
 
-/**
- * Created by hp pc on 06/11/2016.
- */
 public class BuildingDTO implements Serializable {
     private int id;
     private String placeName,placeDesc;

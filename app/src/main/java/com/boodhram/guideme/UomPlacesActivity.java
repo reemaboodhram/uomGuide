@@ -364,6 +364,10 @@ public class UomPlacesActivity extends FragmentActivity implements OnMapReadyCal
                                 .LENGTH_SHORT).show();
                     }
                 }
+                else{
+                Toast.makeText(UomPlacesActivity.this,getResources().getString(R.string.user_location_not_found),Toast
+                        .LENGTH_SHORT).show();
+            }
 
             }
         }

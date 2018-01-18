@@ -23,9 +23,7 @@ import com.google.android.gms.location.GeofencingEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by hp pc on 12/02/2017.
- */
+
 public class GeofenceTransitionsIntentService extends IntentService {
     protected static final String TAG = "GeofenceTransitionsIS";
 

@@ -4,9 +4,7 @@ import android.content.Context;
 
 import java.util.List;
 
-/**
- * Created by H on 19-Nov-16.
- */
+
 public class UomService {
     private BuildingsDAO buildingsDAO;
     public UomService(Context context){

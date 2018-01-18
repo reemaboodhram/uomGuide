@@ -13,9 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by H on 20-Nov-16.
- */
+
 public class DataParser {
 
     /**

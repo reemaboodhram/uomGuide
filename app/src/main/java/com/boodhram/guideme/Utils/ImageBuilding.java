@@ -1,4 +1,4 @@
-package com.boodhram.guideme;
+package com.boodhram.guideme.Utils;
 
 import java.io.Serializable;
 

@@ -4,9 +4,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.HashMap;
 
-/**
- * Created by hp pc on 12/02/2017.
- */
+
 public class Constants {
     public static final long GEOFENCE_EXPIRATION_IN_MILLISECONDS = 12 * 60 * 60 * 1000;
     public static final float GEOFENCE_RADIUS_IN_METERS = 30;

@@ -30,6 +30,9 @@ public class NotificationActivity extends AppCompatActivity {
 
         if(id > 0){
             buildingDTO = new BuildingsDAO(this).getbuildingById(id);
+
+            String placeName = "Hello, you are near the "+buildingDTO.getPlaceName()+". See the building images below: ";
+            txt_notif.setText(placeName);
             RecyclerView recyclerview =  findViewById(R.id.recycler);
             CarouselLayoutManager layoutManager2 = new CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL);
             recyclerview.setLayoutManager(layoutManager2);

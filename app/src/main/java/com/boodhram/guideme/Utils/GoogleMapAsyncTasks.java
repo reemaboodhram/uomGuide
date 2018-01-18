@@ -26,9 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by H on 20-Nov-16.
- */
+
 public class GoogleMapAsyncTasks {
     // Fetches data from url passed
     public static class FetchUrl extends AsyncTask<String, Void, String> {
