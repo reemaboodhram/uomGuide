@@ -12,13 +12,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.boodhram.guideme.MeetingPointActivity;
+import com.boodhram.guideme.ImageBuilding;
+import com.boodhram.guideme.R;
 import com.firebase.client.Firebase;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
@@ -28,9 +28,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by H on 19-Nov-16.
@@ -91,11 +93,14 @@ public class Utils {
         try {
 
             Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
-            int     exitValue = ipProcess.waitFor();
+            int exitValue = ipProcess.waitFor();
             return (exitValue == 0);
 
-        } catch (IOException e)          { e.printStackTrace(); }
-        catch (InterruptedException e) { e.printStackTrace(); }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return false;
     }
@@ -104,31 +109,30 @@ public class Utils {
         Firebase.setAndroidContext(context);
         final ProgressDialog pd = new ProgressDialog(context);
         pd.setMessage("Loading...");
-        if(showProgress){
+        if (showProgress) {
             pd.show();
         }
 
         String url = "https://guideme-7a3a9.firebaseio.com/locations.json";
 
-        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
                 Firebase reference = new Firebase("https://guideme-7a3a9.firebaseio.com/locations");
                 Long timestamp = Calendar.getInstance().getTimeInMillis();
-                if(s.equals("null")) {
+                if (s.equals("null")) {
                     reference.child(user).child("lat").setValue(lastLocation.getLatitude());
                     reference.child(user).child("long").setValue(lastLocation.getLongitude());
                     reference.child(user).child("timestamp").setValue(timestamp);
 
-                }
-                else {
+                } else {
                     try {
                         JSONObject obj = new JSONObject(s);
 
                         Iterator i = obj.keys();
                         String key = "";
 
-                        while(i.hasNext()){
+                        while (i.hasNext()) {
                             key = i.next().toString();
                             JSONObject jsonObject = obj.getJSONObject(key);
                         }
@@ -142,16 +146,16 @@ public class Utils {
                     }
                 }
 
-                if(showProgress){
+                if (showProgress) {
                     pd.dismiss();
                 }
             }
 
-        },new Response.ErrorListener(){
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                System.out.println("" + volleyError );
-                if(showProgress){
+                System.out.println("" + volleyError);
+                if (showProgress) {
                     pd.dismiss();
                 }
             }
@@ -170,19 +174,18 @@ public class Utils {
 
         String url = "https://guideme-7a3a9.firebaseio.com/meetup.json";
 
-        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
                 Firebase reference = new Firebase("https://guideme-7a3a9.firebaseio.com/meetup");
                 Long timestamp = Calendar.getInstance().getTimeInMillis();
-                if(s.equals("null")) {
+                if (s.equals("null")) {
                     reference.child("point").child("lat").setValue(lastLocation.latitude);
                     reference.child("point").child("long").setValue(lastLocation.longitude);
                     reference.child("point").child("timestamp").setValue(timestamp);
                     reference.child("point").child("user").setValue(username);
                     Toast.makeText(context, "Succesfully set meeting point", Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else {
                     try {
                         JSONObject obj = new JSONObject(s);
 
@@ -203,10 +206,10 @@ public class Utils {
 
             }
 
-        },new Response.ErrorListener(){
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                System.out.println("" + volleyError );
+                System.out.println("" + volleyError);
                 pd.dismiss();
 
             }
@@ -216,7 +219,7 @@ public class Utils {
         rQueue.add(request);
     }
 
-    public static void getMeetingPointFromServer(final Context context,final GoogleMap mMap) {
+    public static void getMeetingPointFromServer(final Context context, final GoogleMap mMap) {
         Firebase.setAndroidContext(context);
         final ProgressDialog pd = new ProgressDialog(context);
         pd.setMessage("Loading...");
@@ -226,18 +229,17 @@ public class Utils {
 
         String url = "https://guideme-7a3a9.firebaseio.com/meetup.json";
 
-        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
                 Firebase reference = new Firebase("https://guideme-7a3a9.firebaseio.com/meetup");
                 Long timestamp = Calendar.getInstance().getTimeInMillis();
-                if(s.equals("null")) {
+                if (s.equals("null")) {
                     Toast.makeText(context, "No meetup location found from server", Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else {
                     try {
                         JSONObject obj = new JSONObject(s);
-                        if(obj.getJSONObject("point")!=null){
+                        if (obj.getJSONObject("point") != null) {
                             JSONObject jsonObject = obj.getJSONObject("point");
                             Double lat = jsonObject.optDouble("lat");
                             Double lon = jsonObject.optDouble("long");
@@ -261,7 +263,6 @@ public class Utils {
                         }
 
 
-
                     } catch (JSONException e) {
                         Toast.makeText(context, "Server issues", Toast.LENGTH_LONG).show();
                         e.printStackTrace();
@@ -273,7 +274,7 @@ public class Utils {
 
             }
 
-        },new Response.ErrorListener(){
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Toast.makeText(context, "Problem with the server", Toast.LENGTH_LONG).show();
@@ -286,7 +287,7 @@ public class Utils {
         rQueue.add(request);
     }
 
-    public static void getFriendOnMapMarkers(final Context context,final GoogleMap mMap) {
+    public static void getFriendOnMapMarkers(final Context context, final GoogleMap mMap) {
         Firebase.setAndroidContext(context);
         final ProgressDialog pd = new ProgressDialog(context);
         pd.setMessage("Loading...");
@@ -295,16 +296,15 @@ public class Utils {
 
         String url = "https://guideme-7a3a9.firebaseio.com/locations.json";
 
-        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {
                 Firebase reference = new Firebase("https://guideme-7a3a9.firebaseio.com/locations");
                 Long timestamp = Calendar.getInstance().getTimeInMillis();
-                if(s.equals("null")) {
+                if (s.equals("null")) {
                     Toast.makeText(context, "No Friend Location found", Toast.LENGTH_LONG).show();
 
-                }
-                else {
+                } else {
                     try {
                         JSONObject obj = new JSONObject(s);
 
@@ -312,7 +312,7 @@ public class Utils {
                         String key = "";
                         SimpleDateFormat simpleDateFormat =
                                 new SimpleDateFormat("EEE dd MMM HH:mm");
-                        while(i.hasNext()){
+                        while (i.hasNext()) {
                             key = i.next().toString();
                             JSONObject jsonObject = obj.getJSONObject(key);
                             Double lat = jsonObject.optDouble("lat");
@@ -321,15 +321,14 @@ public class Utils {
                             Calendar cal = Calendar.getInstance();
                             cal.setTimeInMillis(ts);
 
-                            if(lat!=null && lon !=null && ts!= null){
+                            if (lat != null && lon != null && ts != null) {
                                 mMap.addMarker(new MarkerOptions().
-                                        position(new LatLng(lat,lon))
+                                        position(new LatLng(lat, lon))
                                         .title(key)
                                         .snippet(simpleDateFormat.format(cal.getTime()))
                                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                             }
                         }
-
 
 
                     } catch (JSONException e) {
@@ -342,10 +341,10 @@ public class Utils {
 
             }
 
-        },new Response.ErrorListener(){
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                System.out.println("" + volleyError );
+                System.out.println("" + volleyError);
                 pd.dismiss();
 
             }
@@ -353,5 +352,55 @@ public class Utils {
 
         RequestQueue rQueue = Volley.newRequestQueue(context);
         rQueue.add(request);
+    }
+
+    public static List<ImageBuilding> getImageForBuilding(BuildingDTO buildingDTO) {
+        List<ImageBuilding> list = new ArrayList<>();
+
+        switch (buildingDTO.getPlaceName()) {
+            case "POWA":
+                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.a1));
+                break;
+            case "CAFE":
+                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.a1));
+                break;
+            case "NAC":
+                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.a1));
+                break;
+            case "ENGINEERING TOWER":
+                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.a1));
+                break;
+            case "EX COMMON":
+                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.a1));
+                break;
+            case "FOA":
+                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.a1));
+                break;
+            case "FSSSH":
+                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.a1));
+                break;
+            case "LIBRARY":
+                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.a1));
+                break;
+
+        }
+
+        return list;
     }
 }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.boodhram.guideme.Utils.BuildingDTO;
 import com.boodhram.guideme.Utils.UomService;
+import com.boodhram.guideme.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,15 +31,7 @@ public class CarouselAdapterImages extends RecyclerView.Adapter<RecyclerView.Vie
 
     private List<ImageBuilding> populateList(BuildingDTO buildingDTO) {
         BuildingDTO dto = new UomService(mContext).getplaceById(buildingDTO.getId());
-        List<ImageBuilding> list = new ArrayList<>();
-        list.add(new ImageBuilding(R.drawable.a1));
-        list.add(new ImageBuilding(R.drawable.a2));
-        list.add(new ImageBuilding(R.drawable.a3));
-        list.add(new ImageBuilding(R.drawable.a4));
-        list.add(new ImageBuilding(R.drawable.a5));
-        list.add(new ImageBuilding(R.drawable.a6));
-        list.add(new ImageBuilding(R.drawable.a7));
-
+        List<ImageBuilding> list = Utils.getImageForBuilding(dto);
         return list;
     }
 

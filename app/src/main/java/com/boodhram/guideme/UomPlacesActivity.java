@@ -2,9 +2,11 @@ package com.boodhram.guideme;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -326,7 +328,12 @@ public class UomPlacesActivity extends FragmentActivity implements OnMapReadyCal
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(UomPlacesActivity.this,"Phone "+ num,Toast.LENGTH_SHORT).show();
+            if(!num.isEmpty()){
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:"+ Uri.encode(num.trim())));
+                callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(callIntent);
+            }
         }
     }
 

@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by shaulkory on 12/28/2017.
  */
 
-class ImageBuilding implements Serializable{
+public class ImageBuilding implements Serializable{
     int resourceId;
     String description;
 

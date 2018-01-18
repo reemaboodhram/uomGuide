@@ -85,7 +85,7 @@
                         android:id="@+id/readmore_flm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/see_more"
+                        android:text="@string/see_less"
                         android:textColor="@color/colorDashboard" />
 
                     <ImageView
@@ -93,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/icon_down" />
+                        android:src="@drawable/icon_up" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -107,7 +107,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="10dp"
-                android:text="@string/label_foe"
+                android:text="@string/more_flm"
                 android:textAllCaps="false"
                 android:textSize="13sp"
                 android:textStyle="italic"
@@ -195,7 +195,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="10dp"
-                android:text="@string/label_foe"
+                android:text="@string/more_fos"
                 android:textAllCaps="false"
                 android:textSize="13sp"
                 android:textStyle="italic"
@@ -286,7 +286,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="10dp"
-                android:text="@string/label_foe"
+                android:text="@string/more_foe"
                 android:textAllCaps="false"
                 android:textSize="13sp"
                 android:textStyle="italic"
@@ -375,7 +375,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="10dp"
-                android:text="@string/label_foe"
+                android:text="@string/more_foa"
                 android:textAllCaps="false"
                 android:textSize="13sp"
                 android:textStyle="italic"
@@ -464,7 +464,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="10dp"
-                android:text="@string/label_foe"
+                android:text="@string/more_fsssh"
                 android:textAllCaps="false"
                 android:textSize="13sp"
                 android:textStyle="italic"
@@ -553,7 +553,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="10dp"
-                android:text="@string/label_foe"
+                android:text="@string/more_foicdt"
                 android:textAllCaps="false"
                 android:textSize="13sp"
                 android:textStyle="italic"
