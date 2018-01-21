@@ -133,8 +133,8 @@ public class MainActivity extends AppCompatActivity
         fab_chat.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 materialDesignFAM.close(false);
-                Intent intent = new Intent(MainActivity.this, Users.class);
-                startActivity(intent);
+                /*Intent intent = new Intent(MainActivity.this, Users.class);
+                startActivity(intent);*/
 
             }
         });
