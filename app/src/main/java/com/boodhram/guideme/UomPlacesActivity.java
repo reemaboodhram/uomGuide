@@ -134,18 +134,19 @@ public class UomPlacesActivity extends FragmentActivity implements OnMapReadyCal
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.custom_dialog);
-        BuildingDTO buildingDTO = getMarkerBySnippet(marker.getSnippet());
+        BuildingDTO buildingDTO = getMarkerBySnippet(marker.getTitle());
         TextView txt_phone =  dialog.findViewById(R.id.txt_phone);
         ImageView imgPhone =  dialog.findViewById(R.id.imgPhone);
         ImageView imgWalk =  dialog.findViewById(R.id.imgWalk);
         TextView txt_walk =  dialog.findViewById(R.id.txt_walk);
+        TextView txt_details =  dialog.findViewById(R.id.txt_details);
 
         txt_phone.setOnClickListener(new PhoneListener(buildingDTO.getPhone()+""));
         imgPhone.setOnClickListener(new PhoneListener(buildingDTO.getPhone()+""));
 
         imgWalk.setOnClickListener(new WalkListener(marker,dialog));
         txt_walk.setOnClickListener(new WalkListener(marker, dialog));
-
+        txt_details.setText(buildingDTO.getPlaceDesc());
         txt_phone.setText(buildingDTO.getPhone()+"");
         dialog.setCanceledOnTouchOutside(true);
         dialog.setCancelable(true);
@@ -163,11 +164,11 @@ public class UomPlacesActivity extends FragmentActivity implements OnMapReadyCal
         dialog.show();
     }
 
-    private BuildingDTO getMarkerBySnippet(String snippet) {
+    private BuildingDTO getMarkerBySnippet(String name) {
         BuildingDTO building = null;
         if(!list.isEmpty()){
             for(BuildingDTO buildingDTO:list){
-                if(buildingDTO.getPlaceDesc().equalsIgnoreCase(snippet)){
+                if(buildingDTO.getPlaceName().equalsIgnoreCase(name)){
                     building = buildingDTO;
                 }
             }
@@ -180,7 +181,6 @@ public class UomPlacesActivity extends FragmentActivity implements OnMapReadyCal
             mMap.addMarker(new MarkerOptions().
                     position(new LatLng(place.getPlaceLat(),place.getPlaceLong()))
                     .title(place.getPlaceName())
-                    .snippet(place.getPlaceDesc())
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
         }
     }

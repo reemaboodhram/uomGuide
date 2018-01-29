@@ -75,19 +75,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void populateTableBuildings(SQLiteDatabase db) {
-            String qb1 = "INSERT INTO buildings (placeName, placeDesc, placeLat,placeLong,phone) VALUES\n" +
-                    "('POWA', 'paul octave wiehe auditorium', '-20.233378', '57.497468', 12345678)," +
-                    "('CAFE', 'university of mauritius cafetaria', '-20.234205', '57.497626', 12345678),"+
-                    "('NAC', 'NAC', '-20.234691', '57.497531', 12345678),"+
-                    "('ENGINEERING TOWER', 'ENGINEERING TOWER', '-20.236041', '57.497093', 12345678),"+
-                    "('EX COMMON', 'EX COMMON', '-20.233973', '57.496622', 12345678),"+
-                    "('FOA', 'FOA', '-20.234504', '57.496226', 12345678),"+
-                    "('FSSSH', 'FSSSH', '-20.235273', '57.497194', 12345678),"+
-                    "('LIBRARY', 'LIBRARY', '-20.234913', '57.496991', 12345678);";
+        String qb1 = "INSERT INTO buildings (placeName, placeDesc, placeLat,placeLong,phone) VALUES\n" +
+                "('Paul Octave Wiehé Auditorium', 'The Paul Octave Wiehé Auditorium inaugurated on 28th July 1975 by Mr Pierre Abelin, Ministre de la Coopération du Gouvernement de la République Française and named on 25th May 1981 after the former Vice-Chancellor Dr P O Wiehé. It has since been the main place for the graduation ceremony among the many events that take place there.', '-20.233265', '57.497474', 12345678)," +
+                "('Library', 'The University of Mauritius Library has been set up to provide the necessary bibliographic support as well as the services and facilities to satisfy the information needs of its various categories of users, especially the registered students and the academic and technical staff of the university.', '-20.234999', '57.497053', 12345678),"+
+                "('Faculty of Agriculture', 'An extension of the agricultural college, where all the agriculture-related courses are usually held, including the labs.', '-20.234406', '57.496192 ', 12345678),"+
+                "('Finance Building', 'This building is also known as Batiment Roches. Originally founded as the School of Agriculture in 1914, ultimately became the place where all the university payments are issued.', '-20.233713', '57.496771', 12345678),"+
+                "('Faculty of Social Studies and Humanities', 'The Faculty of Social Studies and Humanities was created in 1992 in response to changing socio-economic needs of the community. In the past 20 years, the Faculty has increased, diversified and consolidated programmes of studies at both undergraduate and postgraduate levels. ', '-20.235303', '57.497247', 12345678),"+
+                "('Gymnasium', 'The UoM Multipurpose Gymnasium came to life on the 4th October 2004 and immediately found its niche at the heart of the University.\n" +
+                "It provides a solid platform where potential of individuals can be tapped, the Gymnasium is first of a kind in the country at University level. A handful of sports facilities like the football, badminton, volleyball, table tennis, handball and basketball are practiced, that allow each and every individual to explore his / her abilities.\n', '-20.232802', '57.499236', 12345678),"+
+                "('Football Ground', 'Football is the most popular sports activity practiced on campus. In recent years the student participation has been on the increase. So the University decided to build a huge outdoor ground for the students to have their football tournaments.', '-20.232074', '57.498654', 12345678),"+
+                "('Cafeteria', 'It is the main place where students can have their food under one roof at an affordable rate, with areas to sit and hangout with the friends.', '-20.234213', '57.497616', 12345678),"+
+                "('Ex-common', 'The basic place where game activities like cards, carom, pool tournaments take place, with places to sit around and chill out. Moreover, it consists of labs and a mini canteen.', '-20.234035', '57.496705', 12345678),"+
+                "('Engineering Tower', 'Also know as the Professor Sir Edouard Lim Fat Engineering Tower, this building comprises of 8 floors, which consists of a lecture theatre, classes and administration and student records office.', '-20.236001', '57.496815', 12345678),"+
+                "('Phase II Building', 'The place which consists of classes normally allocated to the engineering section, science labs and the CITS phase.', '-20.235121', '57.496825', 12345678),"+
+                "('Faculty of Law and Management', 'Consists of classes mainly reserved for the students of the faculty of law and management, and the UoM study area.', '-20.234695', '57.497764', 12345678);'";
 
-            db.execSQL(qb1);
 
-        }
+        db.execSQL(qb1);
+
+    }
 
 
 }
