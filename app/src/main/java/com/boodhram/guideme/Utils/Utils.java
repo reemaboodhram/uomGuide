@@ -287,65 +287,72 @@ public class Utils {
 
         switch (buildingDTO.getPlaceName()) {
             case "Paul Octave Wiehé Auditorium":
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.powa1));
+                list.add(new ImageBuilding(R.drawable.powa2));
+                list.add(new ImageBuilding(R.drawable.powa3));
+                list.add(new ImageBuilding(R.drawable.powa4));
                 break;
             case "Library":
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.lib1));
+                list.add(new ImageBuilding(R.drawable.lib2));
+                list.add(new ImageBuilding(R.drawable.lib3));
+                list.add(new ImageBuilding(R.drawable.lib4));
                 break;
             case "Faculty of Agriculture":
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.foa1));
+                list.add(new ImageBuilding(R.drawable.foa2));
                 break;
             case "Finance Building":
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.finance1));
+                list.add(new ImageBuilding(R.drawable.finance2));
+                list.add(new ImageBuilding(R.drawable.finance3));
+                list.add(new ImageBuilding(R.drawable.finance4));
                 break;
             case "Faculty of Social Studies and Humanities":
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.fssh1));
+                list.add(new ImageBuilding(R.drawable.fssh2));
+                list.add(new ImageBuilding(R.drawable.fssh3));
                 break;
             case "Gymnasium":
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.gym1));
+                list.add(new ImageBuilding(R.drawable.gym2));
                 break;
             case "Football Ground":
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.foot1));
+                list.add(new ImageBuilding(R.drawable.foot2));
+                list.add(new ImageBuilding(R.drawable.foot3));
                 break;
             case "Cafeteria":
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.cafe1));
+                list.add(new ImageBuilding(R.drawable.cafe2));
+                list.add(new ImageBuilding(R.drawable.cafe3));
+                list.add(new ImageBuilding(R.drawable.cafe4));
                 break;
             case "Ex-common":
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.excom1));
+                list.add(new ImageBuilding(R.drawable.excom2));
+                list.add(new ImageBuilding(R.drawable.excom3));
+                list.add(new ImageBuilding(R.drawable.excom4));
+                list.add(new ImageBuilding(R.drawable.excom5));
                 break;
-
             case "Engineering Tower":
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.eng1));
+                list.add(new ImageBuilding(R.drawable.eng2));
+                list.add(new ImageBuilding(R.drawable.eng3));
+                list.add(new ImageBuilding(R.drawable.eng4));
                 break;
             case "Phase II Building":
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.phase21));
+                list.add(new ImageBuilding(R.drawable.phase22));
+                list.add(new ImageBuilding(R.drawable.phase23));
                 break;
             case "Faculty of Law and Management":
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
-                list.add(new ImageBuilding(R.drawable.a1));
+                list.add(new ImageBuilding(R.drawable.flm1));
+                list.add(new ImageBuilding(R.drawable.flm2));
+                list.add(new ImageBuilding(R.drawable.flm3));
+                list.add(new ImageBuilding(R.drawable.flm4));
+                list.add(new ImageBuilding(R.drawable.flm5));
+                list.add(new ImageBuilding(R.drawable.flm6));
                 break;
 
         }
