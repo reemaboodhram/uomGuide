@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.boodhram.guideme.R;
+import com.boodhram.guideme.UserListAdapter;
 import com.boodhram.guideme.Utils.AccountDTO;
 import com.boodhram.guideme.Utils.SharedPreferenceHelper;
 
@@ -29,7 +30,7 @@ import java.util.Iterator;
 public class Users extends AppCompatActivity {
     ListView usersList;
     TextView noUsersText;
-    ArrayList<String> userList = new ArrayList<>();
+    ArrayList<AccountDTO> userList = new ArrayList<>();
     int totalUsers = 0;
     ProgressDialog pd;
 
@@ -72,7 +73,7 @@ public class Users extends AppCompatActivity {
         usersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SharedPreferenceHelper.setChatWithToShared(Users.this, userList.get(position));
+                SharedPreferenceHelper.setChatWithToShared(Users.this, userList.get(position).getUsername());
                 startActivity(new Intent(Users.this, Chat.class));
             }
         });
@@ -90,7 +91,10 @@ public class Users extends AppCompatActivity {
                 key = i.next().toString();
 
                 if(!key.equals(accountDTO.getUsername())) {
-                    userList.add(key);
+                    AccountDTO user = new AccountDTO();
+                    user.setUsername(key);
+                    user.setOnlineStatus(obj.getJSONObject(key).optBoolean("online",false));
+                    userList.add(user);
                 }
 
                 totalUsers++;
@@ -107,7 +111,9 @@ public class Users extends AppCompatActivity {
         else{
             noUsersText.setVisibility(View.GONE);
             usersList.setVisibility(View.VISIBLE);
-            usersList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, userList));
+            UserListAdapter adapter = new UserListAdapter(this,
+                    R.layout.userchat_layout, userList);
+            usersList.setAdapter(adapter);
         }
 
         pd.dismiss();

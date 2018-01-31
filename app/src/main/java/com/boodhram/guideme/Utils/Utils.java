@@ -3,6 +3,7 @@ package com.boodhram.guideme.Utils;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.location.Location;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -18,13 +19,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polygon;
-import com.google.android.gms.maps.model.PolygonOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -358,5 +356,38 @@ public class Utils {
         }
 
         return list;
+    }
+
+    public static void setOnlineStatus(Context context, final Boolean online, final String user) {
+        Firebase.setAndroidContext(context);
+        String url = "https://guideme-7a3a9.firebaseio.com/users.json";
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                Firebase reference = new Firebase("https://guideme-7a3a9.firebaseio.com/users");
+                if (s.equals("null")) {
+                    Log.e("ERROR", "user not found");
+                } else {
+                    try {
+                        JSONObject obj = new JSONObject(s);
+                        if (!obj.has(user)) {
+                            Log.e("ERROR", "user not found");
+                        } else {
+                            reference.child(user).child("online").setValue(online);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                System.out.println("" + volleyError);
+            }
+        });
+
+        RequestQueue rQueue = Volley.newRequestQueue(context);
+        rQueue.add(request);
     }
 }

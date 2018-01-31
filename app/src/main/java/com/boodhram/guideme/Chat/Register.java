@@ -2,6 +2,7 @@ package com.boodhram.guideme.Chat;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,7 +30,6 @@ public class Register extends AppCompatActivity {
     EditText username, password;
     Button registerButton;
     String user, pass;
-    TextView login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +39,11 @@ public class Register extends AppCompatActivity {
         username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
         registerButton = (Button)findViewById(R.id.registerButton);
-        login = (TextView)findViewById(R.id.login);
 
+
+        Typeface type = Typeface.createFromAsset(getAssets(),"old_stamper.ttf");
+        registerButton.setTypeface(type);
         Firebase.setAndroidContext(this);
-
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Register.this, Login.class));
-            }
-        });
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +94,7 @@ public class Register extends AppCompatActivity {
                                                     accountDTO.setPassword(pass);
                                                     SharedPreferenceHelper.putAccountInSharedPrefence(Register.this,accountDTO);
                                                     Intent intent = new Intent(Register.this, MainActivity.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                     startActivity(intent);
                                                     finish();
                                                 } else {

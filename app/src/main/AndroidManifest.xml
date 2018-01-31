@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -16,13 +15,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:hardwareAccelerated="false"
+        android:icon="@drawable/applogo"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:hardwareAccelerated="false"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Chat.Login">
+        <activity android:name=".Chat.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,42 +33,50 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBDLQIsOWn5WgTxRkNEVfdeGZOQJRvxiDM" />
 
-        <service android:name=".GeoFencing.GeofenceTransitionsIntentService" />
-
-        <activity android:name=".GeoFencing.NotificationActivity"
+        <activity
+            android:name=".GeoFencing.NotificationActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.UserDialog"/>
+            android:theme="@style/Theme.UserDialog" />
         <activity
             android:name=".UomPlacesActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_map_fragment"></activity>
+            android:label="@string/title_activity_map_fragment"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MeetingPointActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_map_fragment"></activity>
-
+            android:label="@string/title_activity_map_fragment"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SpotFriendsActivity"
+            android:label="@string/title_activity_map_fragment"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/home"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Chat.Register"
             android:screenOrientation="portrait"
-            android:label="@string/title_activity_map_fragment"></activity>
-
-        <!-- <activity android:name=".Chat.Login"> </activity>-->
-
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Chat.Register"
+            android:label="@string/register"/>
+        <activity
+            android:name=".Chat.Users"
+            android:label="@string/users"
             android:screenOrientation="portrait" />
-        <activity android:name=".Chat.Users"
-            android:screenOrientation="portrait" />
-        <activity android:name=".Chat.Chat"
+        <activity
+            android:name=".Chat.Chat"
+            android:label="@string/title.chat"
             android:screenOrientation="portrait" />
 
-        <service
-            android:name=".MyFirebaseMessagingService">
+        <activity android:name=".Chat.Login"
+            android:label="@string/title_activity_login"></activity>
+
+        <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <service android:name=".GeoFencing.GeofenceTransitionsIntentService" />
 
     </application>
 

@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.azoft.carousellayoutmanager.CarouselLayoutManager;
 import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener;
 import com.azoft.carousellayoutmanager.CenterScrollListener;
+import com.boodhram.guideme.Chat.HomeActivity;
 import com.boodhram.guideme.Chat.Login;
 import com.boodhram.guideme.Chat.Users;
 import com.boodhram.guideme.GeoFencing.Constants;
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity
         findViewById();
 
         FirebaseMessaging.getInstance().subscribeToTopic(CONSTANTS.UOM);
-
+        Utils.setOnlineStatus(MainActivity.this,true,accountDTO.getUsername());
     }
 
     private void findViewById() {
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 materialDesignFAM.close(false);
                 SharedPreferenceHelper.clearall(MainActivity.this);
-                Intent login = new Intent(MainActivity.this, Login.class);
+                Intent login = new Intent(MainActivity.this, HomeActivity.class);
                 startActivity(login);
                 finish();
 
@@ -133,8 +134,8 @@ public class MainActivity extends AppCompatActivity
         fab_chat.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 materialDesignFAM.close(false);
-                /*Intent intent = new Intent(MainActivity.this, Users.class);
-                startActivity(intent);*/
+                Intent intent = new Intent(MainActivity.this, Users.class);
+                startActivity(intent);
 
             }
         });
@@ -165,121 +166,6 @@ public class MainActivity extends AppCompatActivity
         layoutManager2.setPostLayoutListener(new CarouselZoomPostLayoutListener());
         FacultyAdapterImages adapterPremium = new FacultyAdapterImages(this);
         recyclerview.setAdapter(adapterPremium);
-
-        LinearLayout more_foe = findViewById(R.id.more_foe);
-        final TextView txt_foe = findViewById(R.id.txt_foe);
-        final TextView readmore_foe = findViewById(R.id.readmore_foe);
-        final ImageView img_more_foe = findViewById(R.id.img_more_foe);
-        more_foe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(txt_foe.getVisibility() == View.VISIBLE){
-                    txt_foe.setVisibility(View.GONE);
-                    readmore_foe.setText(getText(R.string.see_more));
-                    img_more_foe.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.icon_down));
-                }else {
-                    txt_foe.setVisibility(View.VISIBLE);
-                    readmore_foe.setText(getText(R.string.see_less));
-                    img_more_foe.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.icon_up));
-                }
-            }
-        });
-
-        LinearLayout more_foa = findViewById(R.id.more_foa);
-        final TextView txt_foa = findViewById(R.id.txt_foa);
-        final TextView readmore_foa = findViewById(R.id.readmore_foa);
-        final ImageView img_more_foa = findViewById(R.id.img_more_foa);
-        more_foa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(txt_foa.getVisibility() == View.VISIBLE){
-                    txt_foa.setVisibility(View.GONE);
-                    readmore_foa.setText(getText(R.string.see_more));
-                    img_more_foa.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.icon_down));
-                }else {
-                    txt_foa.setVisibility(View.VISIBLE);
-                    readmore_foa.setText(getText(R.string.see_less));
-                    img_more_foa.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.icon_up));
-                }
-            }
-        });
-
-        LinearLayout more_flm = findViewById(R.id.more_flm);
-        final TextView txt_flm = findViewById(R.id.txt_flm);
-        final TextView readmore_flm = findViewById(R.id.readmore_flm);
-        final ImageView img_more_flm = findViewById(R.id.img_more_flm);
-        more_flm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(txt_flm.getVisibility() == View.VISIBLE){
-                    txt_flm.setVisibility(View.GONE);
-                    readmore_flm.setText(getText(R.string.see_more));
-                    img_more_flm.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.icon_down));
-                }else {
-                    txt_flm.setVisibility(View.VISIBLE);
-                    readmore_flm.setText(getText(R.string.see_less));
-                    img_more_flm.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.icon_up));
-                }
-            }
-        });
-
-
-        LinearLayout more_fos = findViewById(R.id.more_fos);
-        final TextView txt_fos = findViewById(R.id.txt_fos);
-        final TextView readmore_fos = findViewById(R.id.readmore_fos);
-        final ImageView img_more_fos = findViewById(R.id.img_more_fos);
-        more_fos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(txt_fos.getVisibility() == View.VISIBLE){
-                    txt_fos.setVisibility(View.GONE);
-                    readmore_fos.setText(getText(R.string.see_more));
-                    img_more_fos.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.icon_down));
-                }else {
-                    txt_fos.setVisibility(View.VISIBLE);
-                    readmore_fos.setText(getText(R.string.see_less));
-                    img_more_fos.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.icon_up));
-                }
-            }
-        });
-
-        LinearLayout more_fsssh = findViewById(R.id.more_fsssh);
-        final TextView txt_fsssh = findViewById(R.id.txt_fsssh);
-        final TextView readmore_fsssh = findViewById(R.id.readmore_fsssh);
-        final ImageView img_more_fsssh = findViewById(R.id.img_more_fsssh);
-        more_fsssh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(txt_fsssh.getVisibility() == View.VISIBLE){
-                    txt_fsssh.setVisibility(View.GONE);
-                    readmore_fsssh.setText(getText(R.string.see_more));
-                    img_more_fsssh.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.icon_down));
-                }else {
-                    txt_fsssh.setVisibility(View.VISIBLE);
-                    readmore_fsssh.setText(getText(R.string.see_less));
-                    img_more_fsssh.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.icon_up));
-                }
-            }
-        });
-
-        LinearLayout more_foicdt = findViewById(R.id.more_foicdt);
-        final TextView txt_foicdt = findViewById(R.id.txt_foicdt);
-        final TextView readmore_foicdt = findViewById(R.id.readmore_foicdt);
-        final ImageView img_more_foicdt = findViewById(R.id.img_more_foicdt);
-        more_foicdt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(txt_foicdt.getVisibility() == View.VISIBLE){
-                    txt_foicdt.setVisibility(View.GONE);
-                    readmore_foicdt.setText(getText(R.string.see_more));
-                    img_more_foicdt.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.icon_down));
-                }else {
-                    txt_foicdt.setVisibility(View.VISIBLE);
-                    readmore_foicdt.setText(getText(R.string.see_less));
-                    img_more_foicdt.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.icon_up));
-                }
-            }
-        });
 
     }
 
@@ -478,5 +364,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Utils.setOnlineStatus(MainActivity.this,false,accountDTO.getUsername());
+    }
 }
 

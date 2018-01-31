@@ -27,13 +27,13 @@ class FacultyAdapterImages extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private List<ImageBuilding> populateList() {
         List<ImageBuilding> list = new ArrayList<>();
         Resources res = mContext.getResources();
-        list.add(new ImageBuilding((R.drawable.a1),res.getString(R.string.faculty_label)));
-        list.add(new ImageBuilding((R.drawable.a2),res.getString(R.string.faculty_flm)));
-        list.add(new ImageBuilding((R.drawable.a3),res.getString(R.string.faculty_fos)));
-        list.add(new ImageBuilding((R.drawable.a4),res.getString(R.string.faculty_foe)));
-        list.add(new ImageBuilding((R.drawable.a5),res.getString(R.string.faculty_foa)));
-        list.add(new ImageBuilding((R.drawable.a6),res.getString(R.string.faculty_fsssh)));
-        list.add(new ImageBuilding((R.drawable.a7),res.getString(R.string.faculty_foicdt)));
+        list.add(new ImageBuilding((R.drawable.finance1),res.getString(R.string.faculty_label)));
+        list.add(new ImageBuilding((R.drawable.flm1),res.getString(R.string.faculty_flm)));
+        list.add(new ImageBuilding((R.drawable.fssh2),res.getString(R.string.faculty_fos)));
+        list.add(new ImageBuilding((R.drawable.eng1),res.getString(R.string.faculty_foe)));
+        list.add(new ImageBuilding((R.drawable.foa1),res.getString(R.string.faculty_foa)));
+        list.add(new ImageBuilding((R.drawable.fssh1),res.getString(R.string.faculty_fsssh)));
+        list.add(new ImageBuilding((R.drawable.phase21),res.getString(R.string.faculty_foicdt)));
 
         return list;
     }

@@ -2,6 +2,7 @@ package com.boodhram.guideme.Chat;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,7 +26,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
-    TextView registerUser;
     EditText username, password;
     Button loginButton;
     String user, pass;
@@ -34,25 +34,12 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        registerUser = (TextView)findViewById(R.id.register);
         username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
         loginButton = (Button)findViewById(R.id.loginButton);
 
-        AccountDTO accountDTO = SharedPreferenceHelper.getAccountFromShared(Login.this);
-        if(accountDTO != null && accountDTO.getUsername() != null){
-            Intent intent = new Intent(Login.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
-        registerUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Login.this, Register.class));
-            }
-        });
+        Typeface type = Typeface.createFromAsset(getAssets(),"old_stamper.ttf");
+        loginButton.setTypeface(type);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +77,9 @@ public class Login extends AppCompatActivity {
                                         accountDTO.setUsername(user);
                                         accountDTO.setPassword(pass);
                                         SharedPreferenceHelper.putAccountInSharedPrefence(Login.this,accountDTO);
-                                        startActivity(new Intent(Login.this, MainActivity.class));
+                                        Intent intent =new Intent(Login.this, MainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
                                         finish();
                                     }
                                     else {
