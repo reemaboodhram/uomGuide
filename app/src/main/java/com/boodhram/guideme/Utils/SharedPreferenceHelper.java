@@ -11,10 +11,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 
 
-/**
- * Created by shaulkory on 3/17/2017.
- */
-
 public class SharedPreferenceHelper {
 
     public static void putAccountInSharedPrefence(Context context, AccountDTO accountDTO){

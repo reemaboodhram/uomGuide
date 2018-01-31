@@ -2,10 +2,6 @@ package com.boodhram.guideme.Utils;
 
 import java.io.Serializable;
 
-/**
- * Created by shaulkory on 1/3/2018.
- */
-
 public class AccountDTO implements Serializable {
     private String username;
     private String password;

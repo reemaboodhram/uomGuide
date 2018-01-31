@@ -15,10 +15,6 @@ import com.boodhram.guideme.Utils.Utils;
 
 import java.util.List;
 
-/**
- * Created by shaulkory on 12/28/2017.
- */
-
 public class CarouselAdapterImages extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private Context mContext;
     List<ImageBuilding> list;

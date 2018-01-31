@@ -15,9 +15,6 @@ import com.boodhram.guideme.Utils.ImageBuilding;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by shaulkory on 12/28/2017.
- */
 
 class FacultyAdapterImages extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private Context mContext;
