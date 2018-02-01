@@ -1,136 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/black"
+    android:orientation="vertical"
     tools:context="com.boodhram.guideme.MainActivity">
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:orientation="vertical"></LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_faculty"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_marginTop="20dp">
-
-            </android.support.v7.widget.RecyclerView>
-
-
-        </LinearLayout>
-    </ScrollView>
-
-    <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/material_design_android_floating_action_menu"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:scaleType="fitCenter"
-        fab:menu_animationDelayPerItem="50"
-        fab:menu_buttonSpacing="0dp"
-        app:menu_backgroundColor="#ccffffff"
-        fab:menu_colorRipple="#99FFFFFF"
-        fab:menu_fab_size="normal"
-        fab:menu_icon="@drawable/icon_fact_menu"
-        fab:menu_labels_colorNormal="#333333"
-        fab:menu_labels_colorPressed="#444444"
-        fab:menu_labels_colorRipple="#66FFFFFF"
-        fab:menu_labels_cornerRadius="3dp"
-        fab:menu_labels_ellipsize="none"
-        fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
-        fab:menu_labels_margin="0dp"
-        fab:menu_labels_maxLines="-1"
-        fab:menu_labels_padding="8dp"
-        fab:menu_labels_paddingBottom="4dp"
-        fab:menu_labels_paddingLeft="8dp"
-        fab:menu_labels_paddingRight="8dp"
-        fab:menu_labels_paddingTop="4dp"
-        fab:menu_labels_position="left"
-        fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
-        fab:menu_labels_showShadow="true"
-        fab:menu_labels_singleLine="false"
-        fab:menu_labels_style="@style/menu_labels_style"
-        fab:menu_labels_textColor="#FFFFFF"
-        fab:menu_labels_textSize="15dp"
-        fab:menu_openDirection="up"
-        fab:menu_shadowColor="#66000000"
-        fab:menu_shadowRadius="4dp"
-        fab:menu_shadowXOffset="1dp"
-        fab:menu_shadowYOffset="3dp"
-        fab:menu_showShadow="true">
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="30dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleType="fitStart"
-            android:src="@drawable/fab"
-            fab:fab_colorNormal="@color/colorPrimary"
-            fab:fab_label="@string/title.logout"
-            fab:fab_size="mini" />
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_meetingPoint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="30dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/fab2"
-            fab:fab_colorNormal="@color/colorPrimary"
-            fab:fab_label="@string/title.meeting.point"
-            fab:fab_size="mini" />
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_myfriends"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="30dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/fab3"
-            fab:fab_colorNormal="@color/colorPrimary"
-            fab:fab_label="@string/title.spot.myfriends"
-            fab:fab_size="mini" />
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_chat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="30dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/fab4"
-            fab:fab_colorNormal="@color/colorPrimary"
-            fab:fab_label="@string/title.chat"
-            fab:fab_size="mini" />
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_myplaces"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="30dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/fab"
-            fab:fab_colorNormal="@color/colorPrimary"
-            fab:fab_label="@string/title.place.of.interest"
-            fab:fab_size="mini" />
-
-    </com.github.clans.fab.FloatingActionMenu>
-
-
-</RelativeLayout>
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        android:orientation="vertical"></LinearLayout>
+</LinearLayout>

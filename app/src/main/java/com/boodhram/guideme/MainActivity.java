@@ -1,32 +1,25 @@
 package com.boodhram.guideme;
 
 import android.Manifest;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import android.app.PendingIntent;
-
-import android.content.Intent;
-import android.location.Location;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.azoft.carousellayoutmanager.CarouselLayoutManager;
-import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener;
-import com.azoft.carousellayoutmanager.CenterScrollListener;
-import com.boodhram.guideme.Chat.HomeActivity;
-import com.boodhram.guideme.Chat.Login;
-import com.boodhram.guideme.Chat.Users;
 import com.boodhram.guideme.GeoFencing.Constants;
 import com.boodhram.guideme.GeoFencing.GeofenceTransitionsIntentService;
 import com.boodhram.guideme.Utils.AccountDTO;
@@ -35,8 +28,6 @@ import com.boodhram.guideme.Utils.CONSTANTS;
 import com.boodhram.guideme.Utils.SharedPreferenceHelper;
 import com.boodhram.guideme.Utils.UomService;
 import com.boodhram.guideme.Utils.Utils;
-import com.github.clans.fab.FloatingActionButton;
-import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -49,20 +40,19 @@ import com.google.android.gms.location.LocationServices;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,LocationListener,
+        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, LocationListener,
         ResultCallback<Status> {
 
     Location lastLocation;
     private LocationRequest mLocationRequest;
-    private final int UPDATE_INTERVAL =  3 * 60 * 1000; // 3 minutes
+    private final int UPDATE_INTERVAL = 3 * 60 * 1000; // 3 minutes
     private final int FASTEST_INTERVAL = 30 * 1000;  // 30 secs
     UomService service;
-    String TAG ="LOCATION SERVICE";
+    String TAG = "LOCATION SERVICE";
     private DrawerLayout drawer;
     protected ArrayList<Geofence> mGeofenceList;
     protected GoogleApiClient mGoogleApiClient;
@@ -73,7 +63,19 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         service = new UomService(MainActivity.this);
         mGeofenceList = new ArrayList<Geofence>();
         buildGoogleApiClient();
@@ -83,89 +85,23 @@ public class MainActivity extends AppCompatActivity
         findViewById();
 
         FirebaseMessaging.getInstance().subscribeToTopic(CONSTANTS.UOM);
-        Utils.setOnlineStatus(MainActivity.this,true,accountDTO.getUsername());
+        Utils.setOnlineStatus(MainActivity.this, true, accountDTO.getUsername());
     }
+
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
 
     private void findViewById() {
 
-        //floating menu
-
-        final FloatingActionMenu materialDesignFAM =  findViewById(R.id.material_design_android_floating_action_menu);
-        final FloatingActionButton fab_meetingPoint =  findViewById(R.id.fab_meetingPoint);
-        final FloatingActionButton fab_logout =  findViewById(R.id.fab_logout);
-        final FloatingActionButton fab_myfriends =  findViewById(R.id.fab_myfriends);
-        final FloatingActionButton fab_chat =  findViewById(R.id.fab_chat);
-        final FloatingActionButton fab_myplaces =  findViewById(R.id.fab_myplaces);
-
-
-        materialDesignFAM.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
-            @Override
-            public void onMenuToggle(boolean opened) {
-
-                if (opened) {
-                    materialDesignFAM.setClosedOnTouchOutside(true);
-                }
-            }
-        });
-
-        fab_myplaces.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                materialDesignFAM.close(false);
-                Intent i = new Intent(MainActivity.this,UomPlacesActivity.class);
-                startActivity(i);
-
-
-            }
-
-        });
-        fab_logout.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                materialDesignFAM.close(false);
-                SharedPreferenceHelper.clearall(MainActivity.this);
-                Intent login = new Intent(MainActivity.this, HomeActivity.class);
-                startActivity(login);
-                finish();
-
-            }
-        });
-
-
-        fab_chat.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                materialDesignFAM.close(false);
-                Intent intent = new Intent(MainActivity.this, Users.class);
-                startActivity(intent);
-
-            }
-        });
-        fab_myfriends.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                materialDesignFAM.close(false);
-                Intent i = new Intent(MainActivity.this,SpotFriendsActivity.class);
-                startActivity(i);
-
-            }
-        });
-
-        fab_meetingPoint.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                materialDesignFAM.close(false);
-                Intent i = new Intent(MainActivity.this,MeetingPointActivity.class);
-                startActivity(i);
-            }
-        });
-
-        RecyclerView recyclerview =  findViewById(R.id.recycler_faculty);
-        CarouselLayoutManager layoutManager2 = new CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL);
-        recyclerview.setLayoutManager(layoutManager2);
-        recyclerview.setHasFixedSize(true);
-
-
-        recyclerview.addOnScrollListener(new CenterScrollListener());
-        layoutManager2.setPostLayoutListener(new CarouselZoomPostLayoutListener());
-        FacultyAdapterImages adapterPremium = new FacultyAdapterImages(this);
-        recyclerview.setAdapter(adapterPremium);
 
     }
 
@@ -187,14 +123,10 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(MainActivity.this,this)
+                .enableAutoManage(MainActivity.this, this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
@@ -205,10 +137,10 @@ public class MainActivity extends AppCompatActivity
     public void populateGeofenceList() {
 
         List<BuildingDTO> list = service.getList();
-        if(!list.isEmpty()){
-            for (BuildingDTO buildingDTO :list) {
+        if (!list.isEmpty()) {
+            for (BuildingDTO buildingDTO : list) {
                 mGeofenceList.add(new Geofence.Builder()
-                        .setRequestId(buildingDTO.getId()+"")
+                        .setRequestId(buildingDTO.getId() + "")
                         .setCircularRegion(
                                 buildingDTO.getPlaceLat(),
                                 buildingDTO.getPlaceLong(),
@@ -219,7 +151,6 @@ public class MainActivity extends AppCompatActivity
                         .build());
             }
         }
-
 
 
     }
@@ -240,14 +171,10 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void setActionBarTitle(String title) {
-        getSupportActionBar().setTitle(title);
-    }
-
     @Override
     public void onConnected(Bundle connectionHint) {
-        Log.e("LOCATION SERVICE ","onConnected");
-        if(!isGeofenceAdded){
+        Log.e("LOCATION SERVICE ", "onConnected");
+        if (!isGeofenceAdded) {
             setListeners();
         }
 
@@ -257,14 +184,14 @@ public class MainActivity extends AppCompatActivity
     // Get last known location
     private void getLastKnownLocation() {
         Log.d("LOCATION SERVICE", "getLastKnownLocation()");
-        if ( checkPermission() ) {
+        if (checkPermission()) {
             lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            if ( lastLocation != null ) {
+            if (lastLocation != null) {
                 Log.i("LOCATION SERVICE", "LasKnown location. " +
                         "Long: " + lastLocation.getLongitude() +
                         " | Lat: " + lastLocation.getLatitude());
-                if(lastLocation!=null){
-                    Utils.sendLastLocationToServer(MainActivity.this,lastLocation,accountDTO.getUsername(),false);
+                if (lastLocation != null) {
+                    Utils.sendLastLocationToServer(MainActivity.this, lastLocation, accountDTO.getUsername(), false);
                 }
                 writeLastLocation();
                 startLocationUpdates();
@@ -272,14 +199,15 @@ public class MainActivity extends AppCompatActivity
                 Log.w(TAG, "No location retrieved yet");
                 startLocationUpdates();
             }
-        }
-        else askPermission();
+        } else askPermission();
     }
+
     // Write location coordinates on UI
     private void writeActualLocation(Location location) {
 
     }
-    private void startLocationUpdates(){
+
+    private void startLocationUpdates() {
 
         Log.i(TAG, "startLocationUpdates()");
         mLocationRequest = LocationRequest.create()
@@ -287,9 +215,10 @@ public class MainActivity extends AppCompatActivity
                 .setInterval(UPDATE_INTERVAL)
                 .setFastestInterval(FASTEST_INTERVAL);
 
-        if ( checkPermission() )
+        if (checkPermission())
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     }
+
     private void writeLastLocation() {
         writeActualLocation(lastLocation);
     }
@@ -299,26 +228,26 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG, "checkPermission()");
         // Ask for permission if it wasn't granted yet
         return (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED );
+                == PackageManager.PERMISSION_GRANTED);
     }
 
     // Asks for permission
     private void askPermission() {
         Log.d(TAG, "askPermission()");
         ActivityCompat.requestPermissions(
-                this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION}, 2);
+                this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 2);
     }
 
 
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         // Do something with result.getErrorCode());
-        Log.e("LOCATION SERVICE ","onConnectionFailed");
+        Log.e("LOCATION SERVICE ", "onConnectionFailed");
     }
 
     @Override
     public void onConnectionSuspended(int cause) {
-        Log.e("LOCATION SERVICE ","onConnectionSuspended");
+        Log.e("LOCATION SERVICE ", "onConnectionSuspended");
         mGoogleApiClient.connect();
     }
 
@@ -341,6 +270,7 @@ public class MainActivity extends AppCompatActivity
         return builder.build();
 
     }
+
     private PendingIntent getGeofencePendingIntent() {
         Intent intent = new Intent(this, GeofenceTransitionsIntentService.class);
         // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when calling addgeoFences()
@@ -358,7 +288,7 @@ public class MainActivity extends AppCompatActivity
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == 2) {
-            if(checkPermission()){
+            if (checkPermission()) {
                 setListeners();
             }
         }
@@ -368,7 +298,37 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Utils.setOnlineStatus(MainActivity.this,false,accountDTO.getUsername());
+        Utils.setOnlineStatus(MainActivity.this, false, accountDTO.getUsername());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
-
