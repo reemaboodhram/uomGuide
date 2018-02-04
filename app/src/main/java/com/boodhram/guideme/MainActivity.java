@@ -8,6 +8,8 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,8 +20,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.boodhram.guideme.Chat.HomeActivity;
+import com.boodhram.guideme.Chat.Users;
 import com.boodhram.guideme.GeoFencing.Constants;
 import com.boodhram.guideme.GeoFencing.GeofenceTransitionsIntentService;
 import com.boodhram.guideme.Utils.AccountDTO;
@@ -59,6 +64,8 @@ public class MainActivity extends AppCompatActivity
     private Button btn_map;
     private Boolean isGeofenceAdded = false;
     private AccountDTO accountDTO;
+    TextView txt_username;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,23 +74,22 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        service = new UomService(MainActivity.this);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        service = new UomService(MainActivity.this);
+
         mGeofenceList = new ArrayList<Geofence>();
         buildGoogleApiClient();
 
         populateGeofenceList();
         accountDTO = SharedPreferenceHelper.getAccountFromShared(MainActivity.this);
         findViewById();
-
         FirebaseMessaging.getInstance().subscribeToTopic(CONSTANTS.UOM);
         Utils.setOnlineStatus(MainActivity.this, true, accountDTO.getUsername());
     }
@@ -91,7 +97,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -101,6 +107,17 @@ public class MainActivity extends AppCompatActivity
 
 
     private void findViewById() {
+        txt_username = navigationView.getHeaderView(0).findViewById(R.id.txt_username);
+        if (accountDTO != null && accountDTO.getUsername() != null) {
+            txt_username.setText(accountDTO.getUsername());
+
+        }
+        Fragment fragment = new DashboardFragment();
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.frame_container, fragment).commit();
+        }
 
 
     }
@@ -312,22 +329,28 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        Intent intent = null;
+        if (id == R.id.nav_uom_places) {
+            intent = new Intent(MainActivity.this, UomPlacesActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_meeting_point) {
+            intent = new Intent(MainActivity.this, MeetingPointActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_friends) {
+            intent = new Intent(MainActivity.this, SpotFriendsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_chat) {
+            intent = new Intent(MainActivity.this, Users.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_logout) {
+            SharedPreferenceHelper.clearall(MainActivity.this);
+            intent = new Intent(MainActivity.this, HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
