@@ -57,6 +57,7 @@
         <activity
             android:name=".Chat.Users"
             android:label="@string/users"
+            android:theme="@style/ActionBarTheme"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Chat.Chat"
@@ -64,6 +65,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Chat.Login"
+            android:theme="@style/ActionBarTheme"
             android:label="@string/title_activity_login" />
 
         <activity
