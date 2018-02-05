@@ -1,15 +1,16 @@
 package com.boodhram.guideme;
 
 import android.Manifest;
+import android.app.FragmentTransaction;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -79,6 +80,8 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        Fragment fragment = new DashboardFragment();
+        openFrag(fragment);
         service = new UomService(MainActivity.this);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -86,7 +89,7 @@ public class MainActivity extends AppCompatActivity
 
         mGeofenceList = new ArrayList<Geofence>();
         buildGoogleApiClient();
-
+        openFrag(new DashboardFragment());
         populateGeofenceList();
         accountDTO = SharedPreferenceHelper.getAccountFromShared(MainActivity.this);
         findViewById();
@@ -112,13 +115,6 @@ public class MainActivity extends AppCompatActivity
             txt_username.setText(accountDTO.getUsername());
 
         }
-        Fragment fragment = new DashboardFragment();
-        if (fragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.frame_container, fragment).commit();
-        }
-
 
     }
 
@@ -350,8 +346,17 @@ public class MainActivity extends AppCompatActivity
             finish();
         }
 
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void openFrag(Fragment fragment) {
+        final FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+        drawer.closeDrawer(GravityCompat.START);
     }
 }
