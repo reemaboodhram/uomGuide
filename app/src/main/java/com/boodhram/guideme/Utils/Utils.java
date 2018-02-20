@@ -1,7 +1,9 @@
 package com.boodhram.guideme.Utils;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.location.Location;
 import android.util.Log;
 import android.widget.Toast;
@@ -389,5 +391,22 @@ public class Utils {
 
         RequestQueue rQueue = Volley.newRequestQueue(context);
         rQueue.add(request);
+    }
+
+    public static void showPopup(String title,String message,Context context){
+        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setCancelable(false);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        if (!((Activity) context).isFinishing()) {
+            builder.show();
+        }
     }
 }

@@ -27,6 +27,7 @@
     <string name="returnmap">Return To Map</string>
     <string name="event_name">Event :</string>
     <string name="time">Time  :</string>
+    <string name="quick_links">Quick Links</string>
 
     <string name="title.place.of.interest">UOM Places</string>
     <string name="title.chat">Chat</string>
@@ -62,5 +63,13 @@
     <string name="home">Home</string>
     <string name="users">Users</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="quick_link_uom_website">Uom Website</string>
+    <string name="quick_link_postgraduate_courses">Postgraduate Courses</string>
+    <string name="quick_link_undergraduate_courses">Undergraduate Courses</string>
+    <string name="quick_link_academic_calendar">Academic calendar</string>
+    <string name="detail_uom_places">All the places of interest at University of Mauritius will be displayed as markers. When clicking on marker you will see info window from which you will see the place images. You can also draw the path to that particular place too.</string>
+    <string name="detail_meeting_point">You can set or view the actual meeting point in this screen. It has 2 modes namely set meeting point and view meeting points. Setting meeting point will override the current meeting point on the server.</string>
+    <string name="detail_spot_friends">You will see the last known location of each user in this particular menu. On clicking the markers, you will get details about the person name and the time at which the last location was know.</string>
+    <string name="detail_chat">You can see all the users of the app as well as the available ones. You can share messages with users in a chatroom.</string>
 
 </resources>
