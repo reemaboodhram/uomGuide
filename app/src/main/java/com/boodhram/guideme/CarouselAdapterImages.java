@@ -50,6 +50,7 @@ public class CarouselAdapterImages extends RecyclerView.Adapter<RecyclerView.Vie
         return list.size();
     }
 
+
     @Override
     public int getItemViewType(int position) {
         return super.getItemViewType(position);

@@ -37,11 +37,11 @@ public class NotificationActivity extends AppCompatActivity {
             CarouselLayoutManager layoutManager2 = new CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL);
             recyclerview.setLayoutManager(layoutManager2);
             recyclerview.setHasFixedSize(true);
-
-            recyclerview.addOnScrollListener(new CenterScrollListener());
-            layoutManager2.setPostLayoutListener(new CarouselZoomPostLayoutListener());
             CarouselAdapterImages adapterPremium = new CarouselAdapterImages(this,buildingDTO);
             recyclerview.setAdapter(adapterPremium);
+            recyclerview.addOnScrollListener(new CenterScrollListener());
+            layoutManager2.setPostLayoutListener(new CarouselZoomPostLayoutListener());
+
         }
 
     }
