@@ -49,13 +49,12 @@ public class Register extends AppCompatActivity {
             public void onClick(View v) {
                 user = username.getText().toString();
                 pass = password.getText().toString();
-
                 if(user.equals("")){
                     username.setError("can't be blank");
                 }
                 else if(pass.equals("")){
                         password.setError("can't be blank");
-                    }
+                }
                     else if(!user.matches("[A-Za-z0-9]+")){
                             username.setError("only alphabet or number allowed");
                         }
@@ -69,22 +68,26 @@ public class Register extends AppCompatActivity {
                                 final ProgressDialog pd = new ProgressDialog(Register.this);
                                 pd.setMessage("Loading...");
                                 pd.show();
-
                                 String url = "https://guideme-7a3a9.firebaseio.com/users.json";
-
                                 StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
                                     @Override
                                     public void onResponse(String s) {
                                         Firebase reference = new Firebase("https://guideme-7a3a9.firebaseio.com/users");
-
                                         if(s.equals("null")) {
                                             reference.child(user).child("password").setValue(pass);
                                             Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
+                                            AccountDTO accountDTO = new AccountDTO();
+                                            accountDTO.setUsername(user);
+                                            accountDTO.setPassword(pass);
+                                            SharedPreferenceHelper.putAccountInSharedPrefence(Register.this,accountDTO);
+                                            Intent intent = new Intent(Register.this, MainActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(intent);
+                                            finish();
                                         }
                                         else {
                                             try {
                                                 JSONObject obj = new JSONObject(s);
-
                                                 if (!obj.has(user)) {
                                                     reference.child(user).child("password").setValue(pass);
                                                     Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
