@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/app_background"
+    android:background="#6aa1bec9"
     android:orientation="vertical">
 
     <ViewFlipper
@@ -18,54 +18,62 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:src="@drawable/finance1" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:src="@drawable/cafe1" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:src="@drawable/cafe4" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:src="@drawable/powa2" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:src="@drawable/excom1" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:src="@drawable/excom4" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:src="@drawable/flm3" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:src="@drawable/foa1" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/eng2" />
+            android:scaleType="fitXY"
+            android:src="@drawable/fssh2" />
 
     </ViewFlipper>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#6adecad1"
         android:orientation="vertical">
 
         <TextView
@@ -99,7 +107,6 @@
                 android:orientation="vertical">
 
                 <ImageView
-
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight=".6"
@@ -126,7 +133,6 @@
                 android:orientation="vertical">
 
                 <ImageView
-
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight=".6"
@@ -152,7 +158,6 @@
                 android:orientation="vertical">
 
                 <ImageView
-
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight=".6"
@@ -180,7 +185,6 @@
                 android:orientation="vertical">
 
                 <ImageView
-
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight=".6"
@@ -226,7 +230,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight=".25"
-                android:background="@drawable/border_red_bgwhite"
+                android:background="@drawable/border_blue_bgwhite"
                 android:orientation="vertical">
 
                 <ImageView
@@ -253,11 +257,10 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="5dp"
                 android:layout_weight=".25"
-                android:background="@drawable/border_red_bgwhite"
+                android:background="@drawable/border_blue_bgwhite"
                 android:orientation="vertical">
 
                 <ImageView
-
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight=".6"
@@ -280,11 +283,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight=".25"
-                android:background="@drawable/border_red_bgwhite"
+                android:background="@drawable/border_blue_bgwhite"
                 android:orientation="vertical">
 
                 <ImageView
-
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight=".6"
@@ -309,11 +311,10 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight=".25"
-                android:background="@drawable/border_red_bgwhite"
+                android:background="@drawable/border_blue_bgwhite"
                 android:orientation="vertical">
 
                 <ImageView
-
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight=".6"
