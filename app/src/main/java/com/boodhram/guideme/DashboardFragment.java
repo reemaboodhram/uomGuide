@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.boodhram.guideme.Chat.Chat;
 import com.boodhram.guideme.Utils.ConnectivityHelper;
 import com.boodhram.guideme.Utils.Utils;
 
@@ -74,26 +75,26 @@ public class DashboardFragment extends Fragment {
         linear_places.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utils.showPopup(getString(R.string.title_place_of_interest),getString(R.string.detail_uom_places),getActivity());
+                Utils.showPopup(getString(R.string.title_place_of_interest),getString(R.string.detail_uom_places),getActivity(),new Intent(getActivity(),UomPlacesActivity.class));
             }
         });
         linear_meeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utils.showPopup(getString(R.string.title_meeting_point),getString(R.string.detail_meeting_point),getActivity());
+                Utils.showPopup(getString(R.string.title_meeting_point),getString(R.string.detail_meeting_point),getActivity(), new Intent(getActivity(), MeetingPointActivity.class));
             }
         });
 
         linear_friends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utils.showPopup(getString(R.string.title_spot_myfriends),getString(R.string.detail_spot_friends),getActivity());
+                Utils.showPopup(getString(R.string.title_spot_myfriends),getString(R.string.detail_spot_friends),getActivity(), new Intent(getActivity(), SpotFriendsActivity.class));
             }
         });
         linear_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utils.showPopup(getString(R.string.title_chat),getString(R.string.detail_chat),getActivity());
+                Utils.showPopup(getString(R.string.title_chat),getString(R.string.detail_chat),getActivity(), new Intent(getActivity(), Chat.class));
             }
         });
 
