@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.boodhram.guideme.Chat.Chat;
+import com.boodhram.guideme.Chat.Users;
 import com.boodhram.guideme.Utils.ConnectivityHelper;
 import com.boodhram.guideme.Utils.Utils;
 
@@ -94,7 +95,7 @@ public class DashboardFragment extends Fragment {
         linear_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utils.showPopup(getString(R.string.title_chat),getString(R.string.detail_chat),getActivity(), new Intent(getActivity(), Chat.class));
+                Utils.showPopup(getString(R.string.title_chat),getString(R.string.detail_chat),getActivity(), new Intent(getActivity(), Users.class));
             }
         });
 
