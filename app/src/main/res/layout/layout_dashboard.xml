@@ -84,8 +84,8 @@
             android:background="@drawable/side_nav_bar"
             android:gravity="center"
             android:text="Tips"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -211,8 +211,8 @@
             android:background="@drawable/side_nav_bar"
             android:gravity="center"
             android:text="Quick Links"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <LinearLayout

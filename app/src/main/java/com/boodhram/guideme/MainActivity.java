@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity
         service = new UomService(MainActivity.this);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        navigationView.setItemIconTintList(null);
 
         mGeofenceList = new ArrayList<Geofence>();
         buildGoogleApiClient();
@@ -338,12 +338,31 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_chat) {
             intent = new Intent(MainActivity.this, Users.class);
             startActivity(intent);
-        } else if (id == R.id.nav_logout) {
+        }
+        else if (id == R.id.nav_logout) {
             SharedPreferenceHelper.clearall(MainActivity.this);
             intent = new Intent(MainActivity.this, HomeActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
+        }else if(id == R.id.club_rays){
+            FirebaseMessaging.getInstance().subscribeToTopic(CONSTANTS.CLUB_RAYS);
+            Toast.makeText(MainActivity.this,"You have successfully subscribed to Rays Club",Toast.LENGTH_SHORT).show();
+        }else if(id == R.id.club_music){
+            FirebaseMessaging.getInstance().subscribeToTopic(CONSTANTS.CLUB_MUSIC);
+            Toast.makeText(MainActivity.this,"You have successfully subscribed to Music Club",Toast.LENGTH_SHORT).show();
+        }else if(id == R.id.club_gym){
+            FirebaseMessaging.getInstance().subscribeToTopic(CONSTANTS.CLUB_GYM);
+            Toast.makeText(MainActivity.this,"You have successfully subscribed to Gym Club",Toast.LENGTH_SHORT).show();
+        }else if(id == R.id.club_tennis){
+            FirebaseMessaging.getInstance().subscribeToTopic(CONSTANTS.CLUB_TENNIS);
+            Toast.makeText(MainActivity.this,"You have successfully subscribed to Tennis Club",Toast.LENGTH_SHORT).show();
+        }else if(id == R.id.club_dance){
+            FirebaseMessaging.getInstance().subscribeToTopic(CONSTANTS.CLUB_DANCE);
+            Toast.makeText(MainActivity.this,"You have successfully subscribed to Dance Club",Toast.LENGTH_SHORT).show();
+        }else if(id == R.id.club_swimming){
+            FirebaseMessaging.getInstance().subscribeToTopic(CONSTANTS.CLUB_SWIM);
+            Toast.makeText(MainActivity.this,"You have successfully subscribed to Swimming Club",Toast.LENGTH_SHORT).show();
         }
 
 

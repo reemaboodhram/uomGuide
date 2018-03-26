@@ -71,5 +71,7 @@
     <string name="detail_meeting_point">You can set or view the actual meeting point in this screen. It has 2 modes namely set meeting point and view meeting points. Setting meeting point will override the current meeting point on the server.</string>
     <string name="detail_spot_friends">You will see the last known location of each user in this particular menu. On clicking the markers, you will get details about the person name and the time at which the last location was know.</string>
     <string name="detail_chat">You can see all the users of the app as well as the available ones. You can share messages with users in a chatroom.</string>
+    <string name="take_picture">Take Picture</string>
+
 
 </resources>
